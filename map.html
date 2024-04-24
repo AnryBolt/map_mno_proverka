@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bf7dbb838152c71682cc74ae6718c2ec {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_bf7dbb838152c71682cc74ae6718c2ec" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bf7dbb838152c71682cc74ae6718c2ec = L.map(
+                "map_bf7dbb838152c71682cc74ae6718c2ec",
+                {
+                    center: [55.7437, 37.76894],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1befd222bdb78063b76f87aaa442e90d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_1befd222bdb78063b76f87aaa442e90d.addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var marker_74c295bf4cfd84d661ba3b4444130223 = L.marker(
+                [55.7437, 37.76894],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_ce16ef0224cf98728e167f7cf7ff7fa9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "brown", "prefix": "glyphicon"}
+            );
+            marker_74c295bf4cfd84d661ba3b4444130223.setIcon(icon_ce16ef0224cf98728e167f7cf7ff7fa9);
+        
+    
+        var popup_74463f40181a676dde9fd74337e0d93a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b27d14b804308cec4f2e72662d2d9386 = $(`<div id="html_b27d14b804308cec4f2e72662d2d9386" style="width: 100.0%; height: 100.0%;">Номер метки: 1 КП; ВМР: 16:00; ТКО: 15:20; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_74463f40181a676dde9fd74337e0d93a.setContent(html_b27d14b804308cec4f2e72662d2d9386);
+            
+        
+
+        marker_74c295bf4cfd84d661ba3b4444130223.bindPopup(popup_74463f40181a676dde9fd74337e0d93a)
+        ;
+
+        
+    
+    
+            marker_74c295bf4cfd84d661ba3b4444130223.bindTooltip(
+                `<div>
+                     30799
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_aec61eaa9a64182ea003a8ca4f4b81a6 = L.marker(
+                [55.7442, 37.76829],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_aff9cf6bd28141c11c171a72c76ba25f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "brown", "prefix": "glyphicon"}
+            );
+            marker_aec61eaa9a64182ea003a8ca4f4b81a6.setIcon(icon_aff9cf6bd28141c11c171a72c76ba25f);
+        
+    
+        var popup_42d238d21d164e2f1e09f5a52901c353 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2d51718e322bb8baefc08e3436452b60 = $(`<div id="html_2d51718e322bb8baefc08e3436452b60" style="width: 100.0%; height: 100.0%;">Номер метки: 2 Площадка для выкатных контейнеров; ВМР: nan; ТКО: 15:20; ТСЖ "СОСЕДИ"</div>`)[0];
+                popup_42d238d21d164e2f1e09f5a52901c353.setContent(html_2d51718e322bb8baefc08e3436452b60);
+            
+        
+
+        marker_aec61eaa9a64182ea003a8ca4f4b81a6.bindPopup(popup_42d238d21d164e2f1e09f5a52901c353)
+        ;
+
+        
+    
+    
+            marker_aec61eaa9a64182ea003a8ca4f4b81a6.bindTooltip(
+                `<div>
+                     61373
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_8aad14d259cc710f780e2239182d8898 = L.marker(
+                [55.745637, 37.767728],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_f8c614c1726110d0644376b94c4ef30c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "brown", "prefix": "glyphicon"}
+            );
+            marker_8aad14d259cc710f780e2239182d8898.setIcon(icon_f8c614c1726110d0644376b94c4ef30c);
+        
+    
+        var popup_efa3b294268c55f6a25d86ba7a5e79b2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_548ba0b9da3910611ada7175a0c51b1e = $(`<div id="html_548ba0b9da3910611ada7175a0c51b1e" style="width: 100.0%; height: 100.0%;">Номер метки: 3 КП; ВМР: 15:55; ТКО: 15:30; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_efa3b294268c55f6a25d86ba7a5e79b2.setContent(html_548ba0b9da3910611ada7175a0c51b1e);
+            
+        
+
+        marker_8aad14d259cc710f780e2239182d8898.bindPopup(popup_efa3b294268c55f6a25d86ba7a5e79b2)
+        ;
+
+        
+    
+    
+            marker_8aad14d259cc710f780e2239182d8898.bindTooltip(
+                `<div>
+                     29725
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0c84fa56ad221837042a2b1aa563deb6 = L.marker(
+                [55.74636, 37.77013],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_107be1f54fbeacd9328dbfc00793d4a7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_0c84fa56ad221837042a2b1aa563deb6.setIcon(icon_107be1f54fbeacd9328dbfc00793d4a7);
+        
+    
+        var popup_d464af2843461c69648394f886a82a42 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aebe8c8dbbd28f86b488880ce8a17937 = $(`<div id="html_aebe8c8dbbd28f86b488880ce8a17937" style="width: 100.0%; height: 100.0%;">Номер метки: 4 КП; ВМР: nan; ТКО: nan; ГБОУ ШКОЛА № 920</div>`)[0];
+                popup_d464af2843461c69648394f886a82a42.setContent(html_aebe8c8dbbd28f86b488880ce8a17937);
+            
+        
+
+        marker_0c84fa56ad221837042a2b1aa563deb6.bindPopup(popup_d464af2843461c69648394f886a82a42)
+        ;
+
+        
+    
+    
+            marker_0c84fa56ad221837042a2b1aa563deb6.bindTooltip(
+                `<div>
+                     57562
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a9f153b2936bef5cae6aeb1ba072be3c = L.marker(
+                [55.74561, 37.77099],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_654ea843063d1f3285d7fbb2894815f5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_a9f153b2936bef5cae6aeb1ba072be3c.setIcon(icon_654ea843063d1f3285d7fbb2894815f5);
+        
+    
+        var popup_4f2030464c2d58ace5db1879cecc041c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a2ff679518e50e0c7858fadc450ac679 = $(`<div id="html_a2ff679518e50e0c7858fadc450ac679" style="width: 100.0%; height: 100.0%;">Номер метки: 5 КП; ВМР: 15:25; ТКО: 17:05; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_4f2030464c2d58ace5db1879cecc041c.setContent(html_a2ff679518e50e0c7858fadc450ac679);
+            
+        
+
+        marker_a9f153b2936bef5cae6aeb1ba072be3c.bindPopup(popup_4f2030464c2d58ace5db1879cecc041c)
+        ;
+
+        
+    
+    
+            marker_a9f153b2936bef5cae6aeb1ba072be3c.bindTooltip(
+                `<div>
+                     57563
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d0f02c3f870000494468e247e8581be3 = L.marker(
+                [55.746957, 37.770641],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_772a788f08d402572d7465e02c593a5f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_d0f02c3f870000494468e247e8581be3.setIcon(icon_772a788f08d402572d7465e02c593a5f);
+        
+    
+        var popup_285dba8df0afeb5fb2a7d7c50d398f9e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d7052b19247452dd23aab60fdb44d548 = $(`<div id="html_d7052b19247452dd23aab60fdb44d548" style="width: 100.0%; height: 100.0%;">Номер метки: 6 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_285dba8df0afeb5fb2a7d7c50d398f9e.setContent(html_d7052b19247452dd23aab60fdb44d548);
+            
+        
+
+        marker_d0f02c3f870000494468e247e8581be3.bindPopup(popup_285dba8df0afeb5fb2a7d7c50d398f9e)
+        ;
+
+        
+    
+    
+            marker_d0f02c3f870000494468e247e8581be3.bindTooltip(
+                `<div>
+                     2614152
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_adf8099e254cfcd7ec30876661738ff2 = L.marker(
+                [55.74749, 37.77149],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_058ef3636165c4d30e72c83faacf13b1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_adf8099e254cfcd7ec30876661738ff2.setIcon(icon_058ef3636165c4d30e72c83faacf13b1);
+        
+    
+        var popup_06361d2716bbbd27e6e362181f8a6360 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_63d5480eaf825201cec4fbbe9d53ac88 = $(`<div id="html_63d5480eaf825201cec4fbbe9d53ac88" style="width: 100.0%; height: 100.0%;">Номер метки: 7 КП; ВМР: nan; ТКО: nan; ГБОУ ШКОЛА № 920</div>`)[0];
+                popup_06361d2716bbbd27e6e362181f8a6360.setContent(html_63d5480eaf825201cec4fbbe9d53ac88);
+            
+        
+
+        marker_adf8099e254cfcd7ec30876661738ff2.bindPopup(popup_06361d2716bbbd27e6e362181f8a6360)
+        ;
+
+        
+    
+    
+            marker_adf8099e254cfcd7ec30876661738ff2.bindTooltip(
+                `<div>
+                     43582
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ddcda8c3686b41473a74e6de6ad267fd = L.marker(
+                [55.747662, 37.770003],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_1c035e151e56ad78cc852a4779307dbe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_ddcda8c3686b41473a74e6de6ad267fd.setIcon(icon_1c035e151e56ad78cc852a4779307dbe);
+        
+    
+        var popup_577c0c28b660a0c368f1feb5bc83b89f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a5e38840b810d2b2978bcbba26c679dd = $(`<div id="html_a5e38840b810d2b2978bcbba26c679dd" style="width: 100.0%; height: 100.0%;">Номер метки: 8 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_577c0c28b660a0c368f1feb5bc83b89f.setContent(html_a5e38840b810d2b2978bcbba26c679dd);
+            
+        
+
+        marker_ddcda8c3686b41473a74e6de6ad267fd.bindPopup(popup_577c0c28b660a0c368f1feb5bc83b89f)
+        ;
+
+        
+    
+    
+            marker_ddcda8c3686b41473a74e6de6ad267fd.bindTooltip(
+                `<div>
+                     2614394
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_08094ba83e25488be758ae44b2e35775 = L.marker(
+                [55.747336, 37.769428],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_261d31fdc922bae04b10c5656571721a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_08094ba83e25488be758ae44b2e35775.setIcon(icon_261d31fdc922bae04b10c5656571721a);
+        
+    
+        var popup_a63e0c47b343ef082776529beed97f0d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_929143cc568dac710084f495f6971d2f = $(`<div id="html_929143cc568dac710084f495f6971d2f" style="width: 100.0%; height: 100.0%;">Номер метки: 9 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_a63e0c47b343ef082776529beed97f0d.setContent(html_929143cc568dac710084f495f6971d2f);
+            
+        
+
+        marker_08094ba83e25488be758ae44b2e35775.bindPopup(popup_a63e0c47b343ef082776529beed97f0d)
+        ;
+
+        
+    
+    
+            marker_08094ba83e25488be758ae44b2e35775.bindTooltip(
+                `<div>
+                     2614393
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e0d51f01b4aa2f7bb7fd928c04373ca8 = L.marker(
+                [55.747908, 37.771881],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_1291a0219c195a2782eee1e53cbe46fa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_e0d51f01b4aa2f7bb7fd928c04373ca8.setIcon(icon_1291a0219c195a2782eee1e53cbe46fa);
+        
+    
+        var popup_30868876225e1ce00881e78883c4a149 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9d95590a866fbd649bf77baff84f6c47 = $(`<div id="html_9d95590a866fbd649bf77baff84f6c47" style="width: 100.0%; height: 100.0%;">Номер метки: 10 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_30868876225e1ce00881e78883c4a149.setContent(html_9d95590a866fbd649bf77baff84f6c47);
+            
+        
+
+        marker_e0d51f01b4aa2f7bb7fd928c04373ca8.bindPopup(popup_30868876225e1ce00881e78883c4a149)
+        ;
+
+        
+    
+    
+            marker_e0d51f01b4aa2f7bb7fd928c04373ca8.bindTooltip(
+                `<div>
+                     2193958
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fdec119b9474be7b02841735f1a16b6b = L.marker(
+                [55.749, 37.77009],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_bceab69ff623e56538a8bc205590e384 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_fdec119b9474be7b02841735f1a16b6b.setIcon(icon_bceab69ff623e56538a8bc205590e384);
+        
+    
+        var popup_042a397ec2bfe18efd9a024fa5f3b93b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_851a7533bb80f0321db1705a333b2e55 = $(`<div id="html_851a7533bb80f0321db1705a333b2e55" style="width: 100.0%; height: 100.0%;">Номер метки: 11 КП; ВМР: nan; ТКО: nan; ООО НПП "ИНЖМЕТ"</div>`)[0];
+                popup_042a397ec2bfe18efd9a024fa5f3b93b.setContent(html_851a7533bb80f0321db1705a333b2e55);
+            
+        
+
+        marker_fdec119b9474be7b02841735f1a16b6b.bindPopup(popup_042a397ec2bfe18efd9a024fa5f3b93b)
+        ;
+
+        
+    
+    
+            marker_fdec119b9474be7b02841735f1a16b6b.bindTooltip(
+                `<div>
+                     109499
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_bfc042ae36a92c8150cb6844e4973fa4 = L.marker(
+                [55.74924, 37.771],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_6f3a3d597b8bebc9ed0081d03f44b41d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_bfc042ae36a92c8150cb6844e4973fa4.setIcon(icon_6f3a3d597b8bebc9ed0081d03f44b41d);
+        
+    
+        var popup_2c335686d281b6880acb139ce1d897c7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aba99265f596694f3d7d4ce50189942f = $(`<div id="html_aba99265f596694f3d7d4ce50189942f" style="width: 100.0%; height: 100.0%;">Номер метки: 12 КП; ВМР: nan; ТКО: nan; ООО "ВОСТОЧНОЕ ПРЕДПРИЯТИЕ-К"</div>`)[0];
+                popup_2c335686d281b6880acb139ce1d897c7.setContent(html_aba99265f596694f3d7d4ce50189942f);
+            
+        
+
+        marker_bfc042ae36a92c8150cb6844e4973fa4.bindPopup(popup_2c335686d281b6880acb139ce1d897c7)
+        ;
+
+        
+    
+    
+            marker_bfc042ae36a92c8150cb6844e4973fa4.bindTooltip(
+                `<div>
+                     110069
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_bdccfc388cc41a338a50d68324132a0d = L.marker(
+                [55.74917, 37.77132],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_05c7546085996c65c303356708cdda55 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_bdccfc388cc41a338a50d68324132a0d.setIcon(icon_05c7546085996c65c303356708cdda55);
+        
+    
+        var popup_aaef5b86b8f776b8960644f9efd2e0eb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_65ba1b5d3c9ba708007368e34852c4b3 = $(`<div id="html_65ba1b5d3c9ba708007368e34852c4b3" style="width: 100.0%; height: 100.0%;">Номер метки: 13 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ООО "СТИМУЛ ЦЕНТР"</div>`)[0];
+                popup_aaef5b86b8f776b8960644f9efd2e0eb.setContent(html_65ba1b5d3c9ba708007368e34852c4b3);
+            
+        
+
+        marker_bdccfc388cc41a338a50d68324132a0d.bindPopup(popup_aaef5b86b8f776b8960644f9efd2e0eb)
+        ;
+
+        
+    
+    
+            marker_bdccfc388cc41a338a50d68324132a0d.bindTooltip(
+                `<div>
+                     110862
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_df4eedb5006a4417245d7fbd58cee03e = L.marker(
+                [55.74952, 37.77087],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_21dec8d0efe19c400898feca7126cf57 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_df4eedb5006a4417245d7fbd58cee03e.setIcon(icon_21dec8d0efe19c400898feca7126cf57);
+        
+    
+        var popup_f806d64926b290e9eaf3d3f2ec22dab2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_20de329b0c0ba59573496ef88892dcad = $(`<div id="html_20de329b0c0ba59573496ef88892dcad" style="width: 100.0%; height: 100.0%;">Номер метки: 14 КП; ВМР: nan; ТКО: nan; ИП Довгополюк Сергей Иванович</div>`)[0];
+                popup_f806d64926b290e9eaf3d3f2ec22dab2.setContent(html_20de329b0c0ba59573496ef88892dcad);
+            
+        
+
+        marker_df4eedb5006a4417245d7fbd58cee03e.bindPopup(popup_f806d64926b290e9eaf3d3f2ec22dab2)
+        ;
+
+        
+    
+    
+            marker_df4eedb5006a4417245d7fbd58cee03e.bindTooltip(
+                `<div>
+                     107221
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b7c28a4cd38e49122aa5a9e02368b267 = L.marker(
+                [55.75016, 37.77061],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_0b165f4e4f902faea8c188f6a035f358 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_b7c28a4cd38e49122aa5a9e02368b267.setIcon(icon_0b165f4e4f902faea8c188f6a035f358);
+        
+    
+        var popup_9907e3ec6f9dbc19e954204dc8777f88 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2f97c7edda62cadfe25fb5495dcdf434 = $(`<div id="html_2f97c7edda62cadfe25fb5495dcdf434" style="width: 100.0%; height: 100.0%;">Номер метки: 15 КП; ВМР: nan; ТКО: nan; ООО "БЦ "ПЕРОВО"</div>`)[0];
+                popup_9907e3ec6f9dbc19e954204dc8777f88.setContent(html_2f97c7edda62cadfe25fb5495dcdf434);
+            
+        
+
+        marker_b7c28a4cd38e49122aa5a9e02368b267.bindPopup(popup_9907e3ec6f9dbc19e954204dc8777f88)
+        ;
+
+        
+    
+    
+            marker_b7c28a4cd38e49122aa5a9e02368b267.bindTooltip(
+                `<div>
+                     112340
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_01b93f2e4b6f110c59595ab72112da68 = L.marker(
+                [55.75102, 37.77163],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_58c11b2307a8a44d8add5a1c0839bb44 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "yellow", "prefix": "glyphicon"}
+            );
+            marker_01b93f2e4b6f110c59595ab72112da68.setIcon(icon_58c11b2307a8a44d8add5a1c0839bb44);
+        
+    
+        var popup_56d523a366967da13dfb12cfa24a96e4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9042cb5b0d84522dbf5c42f59cf2859a = $(`<div id="html_9042cb5b0d84522dbf5c42f59cf2859a" style="width: 100.0%; height: 100.0%;">Номер метки: 16 БП; ВМР: nan; ТКО: nan; АО "ГЕЛИУС"</div>`)[0];
+                popup_56d523a366967da13dfb12cfa24a96e4.setContent(html_9042cb5b0d84522dbf5c42f59cf2859a);
+            
+        
+
+        marker_01b93f2e4b6f110c59595ab72112da68.bindPopup(popup_56d523a366967da13dfb12cfa24a96e4)
+        ;
+
+        
+    
+    
+            marker_01b93f2e4b6f110c59595ab72112da68.bindTooltip(
+                `<div>
+                     109694
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0bc1d7d5965a65755ce838877716ef0a = L.marker(
+                [55.75043, 37.77299],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_af814d7817e909c864bf4933ab21b24f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_0bc1d7d5965a65755ce838877716ef0a.setIcon(icon_af814d7817e909c864bf4933ab21b24f);
+        
+    
+        var popup_f631e48e0bf032d5669559577837cd31 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_53a86f898592e1ccfacfe52d5de05738 = $(`<div id="html_53a86f898592e1ccfacfe52d5de05738" style="width: 100.0%; height: 100.0%;">Номер метки: 17 КП; ВМР: nan; ТКО: nan; АО "БАНК ДОМ.РФ"</div>`)[0];
+                popup_f631e48e0bf032d5669559577837cd31.setContent(html_53a86f898592e1ccfacfe52d5de05738);
+            
+        
+
+        marker_0bc1d7d5965a65755ce838877716ef0a.bindPopup(popup_f631e48e0bf032d5669559577837cd31)
+        ;
+
+        
+    
+    
+            marker_0bc1d7d5965a65755ce838877716ef0a.bindTooltip(
+                `<div>
+                     109491
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6655e8bb185692cb87bbd4a2c11b869e = L.marker(
+                [55.75055, 37.7732],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_c9e1253fa04bb09e6952ced42f21f440 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_6655e8bb185692cb87bbd4a2c11b869e.setIcon(icon_c9e1253fa04bb09e6952ced42f21f440);
+        
+    
+        var popup_dc00e914abc63e4cd7aad04ea02b6eec = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_594142316b0829e31563db257fb31d31 = $(`<div id="html_594142316b0829e31563db257fb31d31" style="width: 100.0%; height: 100.0%;">Номер метки: 18 КП; ВМР: nan; ТКО: nan; АО "ПОЧТА РОССИИ"</div>`)[0];
+                popup_dc00e914abc63e4cd7aad04ea02b6eec.setContent(html_594142316b0829e31563db257fb31d31);
+            
+        
+
+        marker_6655e8bb185692cb87bbd4a2c11b869e.bindPopup(popup_dc00e914abc63e4cd7aad04ea02b6eec)
+        ;
+
+        
+    
+    
+            marker_6655e8bb185692cb87bbd4a2c11b869e.bindTooltip(
+                `<div>
+                     114411
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_8b91b8b54d419c848cc0b2845c7e2e28 = L.marker(
+                [55.7497, 37.77448],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_11aa69a43d7aca484b9019219c8690c0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_8b91b8b54d419c848cc0b2845c7e2e28.setIcon(icon_11aa69a43d7aca484b9019219c8690c0);
+        
+    
+        var popup_1f06ced2dad8d7f52047318879703829 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2eb7648e864630384d53eef262eb4316 = $(`<div id="html_2eb7648e864630384d53eef262eb4316" style="width: 100.0%; height: 100.0%;">Номер метки: 19 БП; ВМР: nan; ТКО: nan; ООО "ФТК СТД РФ"</div>`)[0];
+                popup_1f06ced2dad8d7f52047318879703829.setContent(html_2eb7648e864630384d53eef262eb4316);
+            
+        
+
+        marker_8b91b8b54d419c848cc0b2845c7e2e28.bindPopup(popup_1f06ced2dad8d7f52047318879703829)
+        ;
+
+        
+    
+    
+            marker_8b91b8b54d419c848cc0b2845c7e2e28.bindTooltip(
+                `<div>
+                     114819
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2c82203fa49f88fb4df2c210a9f1129f = L.marker(
+                [55.74965, 37.77453],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_249be1fae4488b56eab74494f8c00806 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "black", "prefix": "glyphicon"}
+            );
+            marker_2c82203fa49f88fb4df2c210a9f1129f.setIcon(icon_249be1fae4488b56eab74494f8c00806);
+        
+    
+        var popup_a8dc27f1e5a4ef1bafcf7e1d67d33688 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_225bb9bb33603009b6d1cbd2b396571d = $(`<div id="html_225bb9bb33603009b6d1cbd2b396571d" style="width: 100.0%; height: 100.0%;">Номер метки: 20 КП; ВМР: nan; ТКО: nan; ООО "БКП"</div>`)[0];
+                popup_a8dc27f1e5a4ef1bafcf7e1d67d33688.setContent(html_225bb9bb33603009b6d1cbd2b396571d);
+            
+        
+
+        marker_2c82203fa49f88fb4df2c210a9f1129f.bindPopup(popup_a8dc27f1e5a4ef1bafcf7e1d67d33688)
+        ;
+
+        
+    
+    
+            marker_2c82203fa49f88fb4df2c210a9f1129f.bindTooltip(
+                `<div>
+                     113417
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4bf5afc4a503c43cb62bb2119d1643a4 = L.marker(
+                [55.75017, 37.77639],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_e9fb98dc4547a6fd5438e8c2a153155f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_4bf5afc4a503c43cb62bb2119d1643a4.setIcon(icon_e9fb98dc4547a6fd5438e8c2a153155f);
+        
+    
+        var popup_55c24b6e1695cbba622a86e9ba54e612 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f19193c004c7742b1e9bc47ed3b75a5a = $(`<div id="html_f19193c004c7742b1e9bc47ed3b75a5a" style="width: 100.0%; height: 100.0%;">Номер метки: 21 КП; ВМР: nan; ТКО: nan; ООО "АВАРИЙНАЯ СЛУЖБА МР "БЕГОВОЙ"</div>`)[0];
+                popup_55c24b6e1695cbba622a86e9ba54e612.setContent(html_f19193c004c7742b1e9bc47ed3b75a5a);
+            
+        
+
+        marker_4bf5afc4a503c43cb62bb2119d1643a4.bindPopup(popup_55c24b6e1695cbba622a86e9ba54e612)
+        ;
+
+        
+    
+    
+            marker_4bf5afc4a503c43cb62bb2119d1643a4.bindTooltip(
+                `<div>
+                     107729
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_83c439d160bd4a82f8a67a28ca6e8f72 = L.marker(
+                [55.75035, 37.77643],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_4cdfe8b9919862f993f1b8aff4d0b1b2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_83c439d160bd4a82f8a67a28ca6e8f72.setIcon(icon_4cdfe8b9919862f993f1b8aff4d0b1b2);
+        
+    
+        var popup_3906a27d15a9c5720a6e96f1f6f3926c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b4c39f620dd9cece2c63ff4997110f7c = $(`<div id="html_b4c39f620dd9cece2c63ff4997110f7c" style="width: 100.0%; height: 100.0%;">Номер метки: 22 КП; ВМР: nan; ТКО: nan; ГУП СППМ</div>`)[0];
+                popup_3906a27d15a9c5720a6e96f1f6f3926c.setContent(html_b4c39f620dd9cece2c63ff4997110f7c);
+            
+        
+
+        marker_83c439d160bd4a82f8a67a28ca6e8f72.bindPopup(popup_3906a27d15a9c5720a6e96f1f6f3926c)
+        ;
+
+        
+    
+    
+            marker_83c439d160bd4a82f8a67a28ca6e8f72.bindTooltip(
+                `<div>
+                     54152
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_9e3a3cf2d2d147b9748b59764d246845 = L.marker(
+                [55.75086, 37.77689],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_c666eec1d0806eee704968e1ba2c72b4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_9e3a3cf2d2d147b9748b59764d246845.setIcon(icon_c666eec1d0806eee704968e1ba2c72b4);
+        
+    
+        var popup_f4ccae76566a3acd8d6a4c511f93b552 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5b80641ec964bf15f50c6af5f8d2860f = $(`<div id="html_5b80641ec964bf15f50c6af5f8d2860f" style="width: 100.0%; height: 100.0%;">Номер метки: 23 КП; ВМР: 11:55; ТКО: 09:45; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_f4ccae76566a3acd8d6a4c511f93b552.setContent(html_5b80641ec964bf15f50c6af5f8d2860f);
+            
+        
+
+        marker_9e3a3cf2d2d147b9748b59764d246845.bindPopup(popup_f4ccae76566a3acd8d6a4c511f93b552)
+        ;
+
+        
+    
+    
+            marker_9e3a3cf2d2d147b9748b59764d246845.bindTooltip(
+                `<div>
+                     39724
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b1239c0dadb2a7f0ddbd9756dd2dc3ad = L.marker(
+                [55.75085, 37.77697],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_6e2f3bbe819f730371cf023adad360db = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_b1239c0dadb2a7f0ddbd9756dd2dc3ad.setIcon(icon_6e2f3bbe819f730371cf023adad360db);
+        
+    
+        var popup_6cad60cdcacd447fa7c7b8437ec619e2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7976f0a6c2004116b7c41c90e123adc8 = $(`<div id="html_7976f0a6c2004116b7c41c90e123adc8" style="width: 100.0%; height: 100.0%;">Номер метки: 24 БП; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_6cad60cdcacd447fa7c7b8437ec619e2.setContent(html_7976f0a6c2004116b7c41c90e123adc8);
+            
+        
+
+        marker_b1239c0dadb2a7f0ddbd9756dd2dc3ad.bindPopup(popup_6cad60cdcacd447fa7c7b8437ec619e2)
+        ;
+
+        
+    
+    
+            marker_b1239c0dadb2a7f0ddbd9756dd2dc3ad.bindTooltip(
+                `<div>
+                     39723
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_92c99a524f6df0da84d4098802d3c45b = L.marker(
+                [55.75026, 37.77855],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_12cee25288e6f0d33cf147f3c8707e38 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_92c99a524f6df0da84d4098802d3c45b.setIcon(icon_12cee25288e6f0d33cf147f3c8707e38);
+        
+    
+        var popup_8530ee4fdb98dbe773f8524ce4338393 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_acc36f2cb6175b74d15391c4b5026b8b = $(`<div id="html_acc36f2cb6175b74d15391c4b5026b8b" style="width: 100.0%; height: 100.0%;">Номер метки: 25 КП; ВМР: nan; ТКО: nan; ОСФР ПО Г. МОСКВЕ И МОСКОВСКОЙ ОБЛАСТИ</div>`)[0];
+                popup_8530ee4fdb98dbe773f8524ce4338393.setContent(html_acc36f2cb6175b74d15391c4b5026b8b);
+            
+        
+
+        marker_92c99a524f6df0da84d4098802d3c45b.bindPopup(popup_8530ee4fdb98dbe773f8524ce4338393)
+        ;
+
+        
+    
+    
+            marker_92c99a524f6df0da84d4098802d3c45b.bindTooltip(
+                `<div>
+                     46187
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fc4d255f850c08320b616b2b12d2785c = L.marker(
+                [55.75075, 37.78087],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_a3bf95ad8f45131f8bb9f5c3122a9a59 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_fc4d255f850c08320b616b2b12d2785c.setIcon(icon_a3bf95ad8f45131f8bb9f5c3122a9a59);
+        
+    
+        var popup_db41f70180884760788573ffcc2edbd9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_92704b4792ab9480e364ca88fd0c9821 = $(`<div id="html_92704b4792ab9480e364ca88fd0c9821" style="width: 100.0%; height: 100.0%;">Номер метки: 26 КП; ВМР: 09:50; ТКО: 09:40; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_db41f70180884760788573ffcc2edbd9.setContent(html_92704b4792ab9480e364ca88fd0c9821);
+            
+        
+
+        marker_fc4d255f850c08320b616b2b12d2785c.bindPopup(popup_db41f70180884760788573ffcc2edbd9)
+        ;
+
+        
+    
+    
+            marker_fc4d255f850c08320b616b2b12d2785c.bindTooltip(
+                `<div>
+                     29699
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_913f365207b29bccdac62ec1d7257baf = L.marker(
+                [55.75163, 37.78068],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_3e100edd45635a9bdb311539c343ac36 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_913f365207b29bccdac62ec1d7257baf.setIcon(icon_3e100edd45635a9bdb311539c343ac36);
+        
+    
+        var popup_956f823f07c3c5dce1fbd637e8b5aba1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e649bfdd467d99bdf24a99762773fce0 = $(`<div id="html_e649bfdd467d99bdf24a99762773fce0" style="width: 100.0%; height: 100.0%;">Номер метки: 27 КП; ВМР: 09:00; ТКО: 09:05; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_956f823f07c3c5dce1fbd637e8b5aba1.setContent(html_e649bfdd467d99bdf24a99762773fce0);
+            
+        
+
+        marker_913f365207b29bccdac62ec1d7257baf.bindPopup(popup_956f823f07c3c5dce1fbd637e8b5aba1)
+        ;
+
+        
+    
+    
+            marker_913f365207b29bccdac62ec1d7257baf.bindTooltip(
+                `<div>
+                     39667
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6a30e52f98028736b52b1611aada28df = L.marker(
+                [55.75102, 37.78195],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_391dfb3b4134f9d9ab1eae81efd53251 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_6a30e52f98028736b52b1611aada28df.setIcon(icon_391dfb3b4134f9d9ab1eae81efd53251);
+        
+    
+        var popup_60dd546a81a5db98df5eba18af3ce199 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_143bcfff96c556645d0c90918e7776ba = $(`<div id="html_143bcfff96c556645d0c90918e7776ba" style="width: 100.0%; height: 100.0%;">Номер метки: 28 КП; ВМР: nan; ТКО: nan; ФГКУ УВО ВНГ России по городу Москве</div>`)[0];
+                popup_60dd546a81a5db98df5eba18af3ce199.setContent(html_143bcfff96c556645d0c90918e7776ba);
+            
+        
+
+        marker_6a30e52f98028736b52b1611aada28df.bindPopup(popup_60dd546a81a5db98df5eba18af3ce199)
+        ;
+
+        
+    
+    
+            marker_6a30e52f98028736b52b1611aada28df.bindTooltip(
+                `<div>
+                     1373674
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_31e7b5fbb727d07cd32aaf032eedae44 = L.marker(
+                [55.75124, 37.7825],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_e76c47a5e0247d50c128cb9c598a187e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_31e7b5fbb727d07cd32aaf032eedae44.setIcon(icon_e76c47a5e0247d50c128cb9c598a187e);
+        
+    
+        var popup_30e4d47463a6b1f00f53df645fa04167 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0027f153086a54f5c87ab39f62b9d977 = $(`<div id="html_0027f153086a54f5c87ab39f62b9d977" style="width: 100.0%; height: 100.0%;">Номер метки: 29 КП; ВМР: 09:00; ТКО: 09:00; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_30e4d47463a6b1f00f53df645fa04167.setContent(html_0027f153086a54f5c87ab39f62b9d977);
+            
+        
+
+        marker_31e7b5fbb727d07cd32aaf032eedae44.bindPopup(popup_30e4d47463a6b1f00f53df645fa04167)
+        ;
+
+        
+    
+    
+            marker_31e7b5fbb727d07cd32aaf032eedae44.bindTooltip(
+                `<div>
+                     36966
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d488b5be576834c8b7be480ef2707328 = L.marker(
+                [55.750793, 37.782377],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_89bce00c50873c151da18b877a082352 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_d488b5be576834c8b7be480ef2707328.setIcon(icon_89bce00c50873c151da18b877a082352);
+        
+    
+        var popup_cac4d1921d2232e8b1656db75edcd62d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ec2e881807debe0c975ac8c387c6a3f5 = $(`<div id="html_ec2e881807debe0c975ac8c387c6a3f5" style="width: 100.0%; height: 100.0%;">Номер метки: 30 КП; ВМР: nan; ТКО: nan; ООО "ЭЙ КЕЙ РАША"</div>`)[0];
+                popup_cac4d1921d2232e8b1656db75edcd62d.setContent(html_ec2e881807debe0c975ac8c387c6a3f5);
+            
+        
+
+        marker_d488b5be576834c8b7be480ef2707328.bindPopup(popup_cac4d1921d2232e8b1656db75edcd62d)
+        ;
+
+        
+    
+    
+            marker_d488b5be576834c8b7be480ef2707328.bindTooltip(
+                `<div>
+                     108468
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_65bb68bd4d6a454820af7ac85eef4baa = L.marker(
+                [55.75015, 37.78213],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_091d98d42954a9456ce4689860e72e90 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_65bb68bd4d6a454820af7ac85eef4baa.setIcon(icon_091d98d42954a9456ce4689860e72e90);
+        
+    
+        var popup_1af55ac1938adc53b8dac1105b972292 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_146a47683c86b1e637cb68b4d1e9869a = $(`<div id="html_146a47683c86b1e637cb68b4d1e9869a" style="width: 100.0%; height: 100.0%;">Номер метки: 31 КП; ВМР: nan; ТКО: nan; ГБОУ "МОСКОВСКАЯ МЕЖДУНАРОДНАЯ ШКОЛА"</div>`)[0];
+                popup_1af55ac1938adc53b8dac1105b972292.setContent(html_146a47683c86b1e637cb68b4d1e9869a);
+            
+        
+
+        marker_65bb68bd4d6a454820af7ac85eef4baa.bindPopup(popup_1af55ac1938adc53b8dac1105b972292)
+        ;
+
+        
+    
+    
+            marker_65bb68bd4d6a454820af7ac85eef4baa.bindTooltip(
+                `<div>
+                     54135
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_83a1890d6ed02c4e0b6b8fe73a72579f = L.marker(
+                [55.75266, 37.77908],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_4b17c712d17f6a43c2675684a0412c31 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "cyan", "prefix": "glyphicon"}
+            );
+            marker_83a1890d6ed02c4e0b6b8fe73a72579f.setIcon(icon_4b17c712d17f6a43c2675684a0412c31);
+        
+    
+        var popup_e585b410a66791458a674bd501cbb0af = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_bdaaa8f7103fe577534be98c3909657d = $(`<div id="html_bdaaa8f7103fe577534be98c3909657d" style="width: 100.0%; height: 100.0%;">Номер метки: 32 КП; ВМР: 09:55; ТКО: 09:10; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_e585b410a66791458a674bd501cbb0af.setContent(html_bdaaa8f7103fe577534be98c3909657d);
+            
+        
+
+        marker_83a1890d6ed02c4e0b6b8fe73a72579f.bindPopup(popup_e585b410a66791458a674bd501cbb0af)
+        ;
+
+        
+    
+    
+            marker_83a1890d6ed02c4e0b6b8fe73a72579f.bindTooltip(
+                `<div>
+                     38403
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_6baeea7af63bd4725a3aa7a55d6fdd58 = L.marker(
+                [55.75366, 37.77865],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_3f691865129929bdf305f6ebbbd6900f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "cyan", "prefix": "glyphicon"}
+            );
+            marker_6baeea7af63bd4725a3aa7a55d6fdd58.setIcon(icon_3f691865129929bdf305f6ebbbd6900f);
+        
+    
+        var popup_97f2c5b4e15d06a373c65ebef8740776 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cf3709e1a58d5e654808a2be5ef9f9c3 = $(`<div id="html_cf3709e1a58d5e654808a2be5ef9f9c3" style="width: 100.0%; height: 100.0%;">Номер метки: 33 КП; ВМР: 09:55; ТКО: 09:10; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_97f2c5b4e15d06a373c65ebef8740776.setContent(html_cf3709e1a58d5e654808a2be5ef9f9c3);
+            
+        
+
+        marker_6baeea7af63bd4725a3aa7a55d6fdd58.bindPopup(popup_97f2c5b4e15d06a373c65ebef8740776)
+        ;
+
+        
+    
+    
+            marker_6baeea7af63bd4725a3aa7a55d6fdd58.bindTooltip(
+                `<div>
+                     38328
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b929442995620155a8a01e53f5309438 = L.marker(
+                [55.75412, 37.77941],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_2b0b9193d264704855363b1f0f5e3f1c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "cyan", "prefix": "glyphicon"}
+            );
+            marker_b929442995620155a8a01e53f5309438.setIcon(icon_2b0b9193d264704855363b1f0f5e3f1c);
+        
+    
+        var popup_c2e76cd71794ee74c133c5be177b0737 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1f879b0839dccea059189f3ce4bbbf50 = $(`<div id="html_1f879b0839dccea059189f3ce4bbbf50" style="width: 100.0%; height: 100.0%;">Номер метки: 34 КП; ВМР: 09:55; ТКО: 09:15; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_c2e76cd71794ee74c133c5be177b0737.setContent(html_1f879b0839dccea059189f3ce4bbbf50);
+            
+        
+
+        marker_b929442995620155a8a01e53f5309438.bindPopup(popup_c2e76cd71794ee74c133c5be177b0737)
+        ;
+
+        
+    
+    
+            marker_b929442995620155a8a01e53f5309438.bindTooltip(
+                `<div>
+                     28583
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e07be8b5c991adf91745c35547c8eb67 = L.marker(
+                [55.75432, 37.77872],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_e2f7e3f266e717cb480b4c76c4cb7283 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "cyan", "prefix": "glyphicon"}
+            );
+            marker_e07be8b5c991adf91745c35547c8eb67.setIcon(icon_e2f7e3f266e717cb480b4c76c4cb7283);
+        
+    
+        var popup_30751e7101f35872c68d60e91d1741f3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_87ba2ee0bde16d20a500b275879516ac = $(`<div id="html_87ba2ee0bde16d20a500b275879516ac" style="width: 100.0%; height: 100.0%;">Номер метки: 35 КП; ВМР: 10:00; ТКО: 09:15; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_30751e7101f35872c68d60e91d1741f3.setContent(html_87ba2ee0bde16d20a500b275879516ac);
+            
+        
+
+        marker_e07be8b5c991adf91745c35547c8eb67.bindPopup(popup_30751e7101f35872c68d60e91d1741f3)
+        ;
+
+        
+    
+    
+            marker_e07be8b5c991adf91745c35547c8eb67.bindTooltip(
+                `<div>
+                     39665
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_be942732b0eb32fd994b76e1e50c1565 = L.marker(
+                [55.7542, 37.77807],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_e9b1adc4355318cf00abbe6f9b2b5366 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "cyan", "prefix": "glyphicon"}
+            );
+            marker_be942732b0eb32fd994b76e1e50c1565.setIcon(icon_e9b1adc4355318cf00abbe6f9b2b5366);
+        
+    
+        var popup_492267060a407fe831f8c7e0befeb205 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4504adbc95e9955ffd4b2e1609a42f2b = $(`<div id="html_4504adbc95e9955ffd4b2e1609a42f2b" style="width: 100.0%; height: 100.0%;">Номер метки: 36 КП; ВМР: 10:00; ТКО: 09:15; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_492267060a407fe831f8c7e0befeb205.setContent(html_4504adbc95e9955ffd4b2e1609a42f2b);
+            
+        
+
+        marker_be942732b0eb32fd994b76e1e50c1565.bindPopup(popup_492267060a407fe831f8c7e0befeb205)
+        ;
+
+        
+    
+    
+            marker_be942732b0eb32fd994b76e1e50c1565.bindTooltip(
+                `<div>
+                     38402
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_684f6bad7c173c63edf7b0ddefb28e17 = L.marker(
+                [55.74848, 37.77526],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_97c0fcc007f1e083bfab0992dfbc294d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_684f6bad7c173c63edf7b0ddefb28e17.setIcon(icon_97c0fcc007f1e083bfab0992dfbc294d);
+        
+    
+        var popup_f30f87d9cabbe4ac903335aead154f99 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1209e2b3aee48684f2a41cf217beaa38 = $(`<div id="html_1209e2b3aee48684f2a41cf217beaa38" style="width: 100.0%; height: 100.0%;">Номер метки: 37 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ООО "АГРОТОРГ"</div>`)[0];
+                popup_f30f87d9cabbe4ac903335aead154f99.setContent(html_1209e2b3aee48684f2a41cf217beaa38);
+            
+        
+
+        marker_684f6bad7c173c63edf7b0ddefb28e17.bindPopup(popup_f30f87d9cabbe4ac903335aead154f99)
+        ;
+
+        
+    
+    
+            marker_684f6bad7c173c63edf7b0ddefb28e17.bindTooltip(
+                `<div>
+                     54154
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_dd124b7249a1a71b51a9c79aac531a67 = L.marker(
+                [55.74801, 37.775024],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_35498c4c6b99221c3e3de2c2a3fdcdca = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_dd124b7249a1a71b51a9c79aac531a67.setIcon(icon_35498c4c6b99221c3e3de2c2a3fdcdca);
+        
+    
+        var popup_3e1ae6065fd99323936e3cd1c47d6f22 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_260b2391bed73e35cd9d72d9c8f777ce = $(`<div id="html_260b2391bed73e35cd9d72d9c8f777ce" style="width: 100.0%; height: 100.0%;">Номер метки: 38 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_3e1ae6065fd99323936e3cd1c47d6f22.setContent(html_260b2391bed73e35cd9d72d9c8f777ce);
+            
+        
+
+        marker_dd124b7249a1a71b51a9c79aac531a67.bindPopup(popup_3e1ae6065fd99323936e3cd1c47d6f22)
+        ;
+
+        
+    
+    
+            marker_dd124b7249a1a71b51a9c79aac531a67.bindTooltip(
+                `<div>
+                     2614711
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0ab92860b845a416f559c0152df0afa7 = L.marker(
+                [55.74711, 37.774607],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_771bbc0d47931cbdebcf449e502a421c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0ab92860b845a416f559c0152df0afa7.setIcon(icon_771bbc0d47931cbdebcf449e502a421c);
+        
+    
+        var popup_2bc790eaf554ecc0df7242093eaea84f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b0609618d1f088da0bf600a2135ec91b = $(`<div id="html_b0609618d1f088da0bf600a2135ec91b" style="width: 100.0%; height: 100.0%;">Номер метки: 39 КП; ВМР: nan; ТКО: nan; ООО магазин "Контакт на Перовской"</div>`)[0];
+                popup_2bc790eaf554ecc0df7242093eaea84f.setContent(html_b0609618d1f088da0bf600a2135ec91b);
+            
+        
+
+        marker_0ab92860b845a416f559c0152df0afa7.bindPopup(popup_2bc790eaf554ecc0df7242093eaea84f)
+        ;
+
+        
+    
+    
+            marker_0ab92860b845a416f559c0152df0afa7.bindTooltip(
+                `<div>
+                     106070
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2bced9d810875f21eebdd48395f315ee = L.marker(
+                [55.74681, 37.77447],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_0eb160ed6ea328c9f5c34ea8e84143e7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "white", "prefix": "glyphicon"}
+            );
+            marker_2bced9d810875f21eebdd48395f315ee.setIcon(icon_0eb160ed6ea328c9f5c34ea8e84143e7);
+        
+    
+        var popup_1bc39c0b91543d6894d3d9918171640c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0055f8d89819c3afd15dc6bd499beab2 = $(`<div id="html_0055f8d89819c3afd15dc6bd499beab2" style="width: 100.0%; height: 100.0%;">Номер метки: 40 КП; ВМР: nan; ТКО: nan; ООО "ЭЭМГ"</div>`)[0];
+                popup_1bc39c0b91543d6894d3d9918171640c.setContent(html_0055f8d89819c3afd15dc6bd499beab2);
+            
+        
+
+        marker_2bced9d810875f21eebdd48395f315ee.bindPopup(popup_1bc39c0b91543d6894d3d9918171640c)
+        ;
+
+        
+    
+    
+            marker_2bced9d810875f21eebdd48395f315ee.bindTooltip(
+                `<div>
+                     109821
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_275621f9c03da5134d236e228546efea = L.marker(
+                [55.747008, 37.77385],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_8b89232af75b806a9844592e658826b0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "white", "prefix": "glyphicon"}
+            );
+            marker_275621f9c03da5134d236e228546efea.setIcon(icon_8b89232af75b806a9844592e658826b0);
+        
+    
+        var popup_bd960e45f67422fb578cb12f698944bf = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_697f466a4890902e7cf1d993c4cd9ba8 = $(`<div id="html_697f466a4890902e7cf1d993c4cd9ba8" style="width: 100.0%; height: 100.0%;">Номер метки: 41 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_bd960e45f67422fb578cb12f698944bf.setContent(html_697f466a4890902e7cf1d993c4cd9ba8);
+            
+        
+
+        marker_275621f9c03da5134d236e228546efea.bindPopup(popup_bd960e45f67422fb578cb12f698944bf)
+        ;
+
+        
+    
+    
+            marker_275621f9c03da5134d236e228546efea.bindTooltip(
+                `<div>
+                     2123285
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_605c663fdd96a96db75f8afbc09c3594 = L.marker(
+                [55.74619, 37.7735],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_d6ab492bd1618112fd5812847fc5bf5e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "white", "prefix": "glyphicon"}
+            );
+            marker_605c663fdd96a96db75f8afbc09c3594.setIcon(icon_d6ab492bd1618112fd5812847fc5bf5e);
+        
+    
+        var popup_65f4d9d46e631cc5298c03892c14dacc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_04fd8faf01b857a46db93c32d2f57746 = $(`<div id="html_04fd8faf01b857a46db93c32d2f57746" style="width: 100.0%; height: 100.0%;">Номер метки: 42 БП; ВМР: nan; ТКО: nan; ГБУ "МОССПОРТОБЪЕКТ"</div>`)[0];
+                popup_65f4d9d46e631cc5298c03892c14dacc.setContent(html_04fd8faf01b857a46db93c32d2f57746);
+            
+        
+
+        marker_605c663fdd96a96db75f8afbc09c3594.bindPopup(popup_65f4d9d46e631cc5298c03892c14dacc)
+        ;
+
+        
+    
+    
+            marker_605c663fdd96a96db75f8afbc09c3594.bindTooltip(
+                `<div>
+                     175453
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_49bf6ed2d322c387e0dfd21df79f163f = L.marker(
+                [55.74556, 37.77335],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_c3bc77ffd2e09e448dfc75387a5ddf1f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "white", "prefix": "glyphicon"}
+            );
+            marker_49bf6ed2d322c387e0dfd21df79f163f.setIcon(icon_c3bc77ffd2e09e448dfc75387a5ddf1f);
+        
+    
+        var popup_031295c38dba51075e93a6f395105fbf = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_48906c72b911012e9634ee9c573b4ada = $(`<div id="html_48906c72b911012e9634ee9c573b4ada" style="width: 100.0%; height: 100.0%;">Номер метки: 43 КП; ВМР: nan; ТКО: nan; ГБОУ ШКОЛА № 920</div>`)[0];
+                popup_031295c38dba51075e93a6f395105fbf.setContent(html_48906c72b911012e9634ee9c573b4ada);
+            
+        
+
+        marker_49bf6ed2d322c387e0dfd21df79f163f.bindPopup(popup_031295c38dba51075e93a6f395105fbf)
+        ;
+
+        
+    
+    
+            marker_49bf6ed2d322c387e0dfd21df79f163f.bindTooltip(
+                `<div>
+                     57538
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_36e1393378671c44a522002262fbba4c = L.marker(
+                [55.74385, 37.77212],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_356de747a7dd4ea2bb87e5147aecc10a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "purple", "prefix": "glyphicon"}
+            );
+            marker_36e1393378671c44a522002262fbba4c.setIcon(icon_356de747a7dd4ea2bb87e5147aecc10a);
+        
+    
+        var popup_9e76e3405afa23dc19ca3bef538a47c5 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_940e8eb4745fcd161202dab6027299b4 = $(`<div id="html_940e8eb4745fcd161202dab6027299b4" style="width: 100.0%; height: 100.0%;">Номер метки: 44 КП; ВМР: nan; ТКО: nan; КОММЕРЦ СТАНДАРТ ООО</div>`)[0];
+                popup_9e76e3405afa23dc19ca3bef538a47c5.setContent(html_940e8eb4745fcd161202dab6027299b4);
+            
+        
+
+        marker_36e1393378671c44a522002262fbba4c.bindPopup(popup_9e76e3405afa23dc19ca3bef538a47c5)
+        ;
+
+        
+    
+    
+            marker_36e1393378671c44a522002262fbba4c.bindTooltip(
+                `<div>
+                     109508
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1356fdec459448167be6b08670390b4a = L.marker(
+                [55.74356, 37.77181],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_100e9826d1577b0e19bcd9edc0dd9636 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "purple", "prefix": "glyphicon"}
+            );
+            marker_1356fdec459448167be6b08670390b4a.setIcon(icon_100e9826d1577b0e19bcd9edc0dd9636);
+        
+    
+        var popup_cc6dec1c6a279b85a1d763d2b31e5359 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3e1aa69506da58c5775a2fd1089bd7ad = $(`<div id="html_3e1aa69506da58c5775a2fd1089bd7ad" style="width: 100.0%; height: 100.0%;">Номер метки: 45 КП; ВМР: 15:25; ТКО: 17:10; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_cc6dec1c6a279b85a1d763d2b31e5359.setContent(html_3e1aa69506da58c5775a2fd1089bd7ad);
+            
+        
+
+        marker_1356fdec459448167be6b08670390b4a.bindPopup(popup_cc6dec1c6a279b85a1d763d2b31e5359)
+        ;
+
+        
+    
+    
+            marker_1356fdec459448167be6b08670390b4a.bindTooltip(
+                `<div>
+                     60924
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_101b804dce21365e144c5c002b630448 = L.marker(
+                [55.74319, 37.77086],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_b136d20504be9e7dee5769fcf94c2007 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "purple", "prefix": "glyphicon"}
+            );
+            marker_101b804dce21365e144c5c002b630448.setIcon(icon_b136d20504be9e7dee5769fcf94c2007);
+        
+    
+        var popup_bf04c549d6ff24c689bfccdf9800a5eb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6bfa0fdd10873d9f0a85ced40b2b1ee2 = $(`<div id="html_6bfa0fdd10873d9f0a85ced40b2b1ee2" style="width: 100.0%; height: 100.0%;">Номер метки: 46 КП; ВМР: nan; ТКО: nan; ГБУК Г. МОСКВЫ "ГМКЦ "ИНТЕГРАЦИЯ"</div>`)[0];
+                popup_bf04c549d6ff24c689bfccdf9800a5eb.setContent(html_6bfa0fdd10873d9f0a85ced40b2b1ee2);
+            
+        
+
+        marker_101b804dce21365e144c5c002b630448.bindPopup(popup_bf04c549d6ff24c689bfccdf9800a5eb)
+        ;
+
+        
+    
+    
+            marker_101b804dce21365e144c5c002b630448.bindTooltip(
+                `<div>
+                     60923
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_88098715917bddf16c53fdb030be3699 = L.marker(
+                [55.743488, 37.770454],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_2c450ac25411816a4cdb2ffbbc7ec201 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "purple", "prefix": "glyphicon"}
+            );
+            marker_88098715917bddf16c53fdb030be3699.setIcon(icon_2c450ac25411816a4cdb2ffbbc7ec201);
+        
+    
+        var popup_f9cad5237fc34079dc8077c8d50bc9cd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_60d9ccfda9c9271057b347232fb6c00b = $(`<div id="html_60d9ccfda9c9271057b347232fb6c00b" style="width: 100.0%; height: 100.0%;">Номер метки: 47 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_f9cad5237fc34079dc8077c8d50bc9cd.setContent(html_60d9ccfda9c9271057b347232fb6c00b);
+            
+        
+
+        marker_88098715917bddf16c53fdb030be3699.bindPopup(popup_f9cad5237fc34079dc8077c8d50bc9cd)
+        ;
+
+        
+    
+    
+            marker_88098715917bddf16c53fdb030be3699.bindTooltip(
+                `<div>
+                     2120958
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a79d1fe9807cf086b9faa905417ae251 = L.marker(
+                [55.74377, 37.77454],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_350bbadfd8101f674883c4a16d3bbf01 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"}
+            );
+            marker_a79d1fe9807cf086b9faa905417ae251.setIcon(icon_350bbadfd8101f674883c4a16d3bbf01);
+        
+    
+        var popup_10be7b364dc9a0a0b5ffe00ae2a828a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_723abb792b2b810ae32c5da226dd14ca = $(`<div id="html_723abb792b2b810ae32c5da226dd14ca" style="width: 100.0%; height: 100.0%;">Номер метки: 48 КП; ВМР: nan; ТКО: nan; ГБУК Г. МОСКВЫ "МОСКОВСКИЙ ТЕАТР ИЛЛЮЗИИ"</div>`)[0];
+                popup_10be7b364dc9a0a0b5ffe00ae2a828a0.setContent(html_723abb792b2b810ae32c5da226dd14ca);
+            
+        
+
+        marker_a79d1fe9807cf086b9faa905417ae251.bindPopup(popup_10be7b364dc9a0a0b5ffe00ae2a828a0)
+        ;
+
+        
+    
+    
+            marker_a79d1fe9807cf086b9faa905417ae251.bindTooltip(
+                `<div>
+                     116253
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_18ca7d33141eee6a08195e0de986acd4 = L.marker(
+                [55.743503, 37.777036],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_b5f79768069af14b3f70fc1d748411ee = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"}
+            );
+            marker_18ca7d33141eee6a08195e0de986acd4.setIcon(icon_b5f79768069af14b3f70fc1d748411ee);
+        
+    
+        var popup_462bbed2151ff3847264c0eaa934bf78 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_47ad25aa6cdbb3b65db6de6ae15b76e0 = $(`<div id="html_47ad25aa6cdbb3b65db6de6ae15b76e0" style="width: 100.0%; height: 100.0%;">Номер метки: 49 Площадка для выкатных контейнеров; ВМР: nan; ТКО: nan; ГБУ "ЖИЛИЩНИК РАЙОНА ПЕРОВО"</div>`)[0];
+                popup_462bbed2151ff3847264c0eaa934bf78.setContent(html_47ad25aa6cdbb3b65db6de6ae15b76e0);
+            
+        
+
+        marker_18ca7d33141eee6a08195e0de986acd4.bindPopup(popup_462bbed2151ff3847264c0eaa934bf78)
+        ;
+
+        
+    
+    
+            marker_18ca7d33141eee6a08195e0de986acd4.bindTooltip(
+                `<div>
+                     2121315
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_415af81cb45cfce283f6004afe1ce88b = L.marker(
+                [55.74525, 37.77662],
+                {}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+    
+            var icon_054e648b6d8c10b2403c5f17f1891f02 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"}
+            );
+            marker_415af81cb45cfce283f6004afe1ce88b.setIcon(icon_054e648b6d8c10b2403c5f17f1891f02);
+        
+    
+        var popup_7aa8423ce774e56a6828a2518a705be0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e6a35da9ca956a6fcc3d601450f07b46 = $(`<div id="html_e6a35da9ca956a6fcc3d601450f07b46" style="width: 100.0%; height: 100.0%;">Номер метки: 50 КП; ВМР: nan; ТКО: nan; ООО "АГРОТОРГ"</div>`)[0];
+                popup_7aa8423ce774e56a6828a2518a705be0.setContent(html_e6a35da9ca956a6fcc3d601450f07b46);
+            
+        
+
+        marker_415af81cb45cfce283f6004afe1ce88b.bindPopup(popup_7aa8423ce774e56a6828a2518a705be0)
+        ;
+
+        
+    
+    
+            marker_415af81cb45cfce283f6004afe1ce88b.bindTooltip(
+                `<div>
+                     57566
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_4f3fa7ea668eca25c8388ed9ddf0193a = L.polyline(
+                [[55.7437, 37.76894], [55.7442, 37.76829], [55.745637, 37.767728], [55.74636, 37.77013], [55.74561, 37.77099], [55.746957, 37.770641], [55.74749, 37.77149], [55.747662, 37.770003], [55.747336, 37.769428], [55.747908, 37.771881], [55.749, 37.77009], [55.74924, 37.771], [55.74917, 37.77132], [55.74952, 37.77087], [55.75016, 37.77061], [55.75102, 37.77163], [55.75043, 37.77299], [55.75055, 37.7732], [55.7497, 37.77448], [55.74965, 37.77453], [55.75017, 37.77639], [55.75035, 37.77643], [55.75086, 37.77689], [55.75085, 37.77697], [55.75026, 37.77855], [55.75075, 37.78087], [55.75163, 37.78068], [55.75102, 37.78195], [55.75124, 37.7825], [55.750793, 37.782377], [55.75015, 37.78213], [55.75266, 37.77908], [55.75366, 37.77865], [55.75412, 37.77941], [55.75432, 37.77872], [55.7542, 37.77807], [55.74848, 37.77526], [55.74801, 37.775024], [55.74711, 37.774607], [55.74681, 37.77447], [55.747008, 37.77385], [55.74619, 37.7735], [55.74556, 37.77335], [55.74385, 37.77212], [55.74356, 37.77181], [55.74319, 37.77086], [55.743488, 37.770454], [55.74377, 37.77454], [55.743503, 37.777036], [55.74525, 37.77662]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_bf7dbb838152c71682cc74ae6718c2ec);
+        
+</script>
+</html>

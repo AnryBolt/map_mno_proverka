@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
-import geopy as gp
+import geopy
+from geopy.distance import geodesic
 import folium
 import itertools
-import sklearn as sk
+import sklearn
+from sklearn.cluster import KMeans
 import streamlit as st
 import os
 import io
@@ -44,7 +46,7 @@ if uploaded_lo_proverka != None:
 
     # Функция для вычисления расстояния между двумя точками
     def distance(point1, point2):
-        return gp.geodesic((point1["Широта"], point1["Долгота"]), (point2["Широта"], point2["Долгота"])).meters
+        return geodesic((point1["Широта"], point1["Долгота"]), (point2["Широта"], point2["Долгота"])).meters
 
     # Функция для поиска оптимального пути
     def find_optimal_path(df):
@@ -61,7 +63,7 @@ if uploaded_lo_proverka != None:
 
     # Производим кластеризацию с заданным числом кластеров
     n_clusters=11
-    kmeans = sk.KMeans(n_clusters)
+    kmeans = KMeans(n_clusters)
     df['Кластер'] = kmeans.fit_predict(df[['Широта','Долгота']])
     m = folium.Map(location=[df['Широта'].iloc[0], df['Долгота'].iloc[0]], zoom_start=13) # отобразим все точки
     for index, row in df.iterrows():
@@ -171,7 +173,7 @@ if uploaded_lo_proverka != None:
     coords = points[['Широта', 'Долгота']].values.tolist()
 
     # Вычислите общее расстояние, суммируя расстояния между всеми последовательными точками
-    total_distance = round(sum(gp.geodesic(coords[i], coords[i+1]).km for i in range(len(coords)-1)),2)
+    total_distance = round(sum(geodesic(coords[i], coords[i+1]).km for i in range(len(coords)-1)),2)
 
     print(f'Общий путь: {total_distance} км')
     # Вывод на экран общего пути
