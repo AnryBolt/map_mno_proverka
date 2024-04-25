@@ -9,7 +9,7 @@ import io
 import warnings
 warnings.filterwarnings('ignore')
 
-st.set_page_config(page_title='Проверка МНО для ЯК')
+st.set_page_config(page_title='Проверка МНО для ЯК', page_icon='eco.png',layout='wide')
 st.title('Генерация Таблицы и Маршрута для Яндекс-Карт по проверкам',)
 
 uploaded_lo_proverka = st.file_uploader("**:red[1. Выбери файл ЛО_Проверка...]**")
@@ -183,11 +183,11 @@ if uploaded_lo_proverka != None:
         map_html = f.read()
 
     # Отображение карты
-    st.components.v1.html(map_html, width=700, height=800)
+    st.components.v1.html(map_html, width=1700, height=800)
 
     itog_table = union_df.drop(columns ='Кластер')
     # Отображение таблицы
-    st.write(itog_table)
+    st.write(itog_table,)
 
     towrite = io.BytesIO()
     itog_table.to_excel(towrite, index=False)
