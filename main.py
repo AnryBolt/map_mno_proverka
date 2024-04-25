@@ -1,10 +1,8 @@
 import pandas as pd
 import numpy as np
-import geopy
 from geopy.distance import geodesic
 import folium
 import itertools
-import sklearn
 from sklearn.cluster import KMeans
 import streamlit as st
 import os
