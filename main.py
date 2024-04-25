@@ -61,7 +61,7 @@ if uploaded_lo_proverka != None:
 
     # Производим кластеризацию с заданным числом кластеров
     n_clusters=int(len(df)/4)
-    kmeans = KMeans(n_clusters, random_state = 42)
+    kmeans = KMeans(n_clusters, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 42)
     df['Кластер'] = kmeans.fit_predict(df[['Широта','Долгота']])
     m = folium.Map(location=[df['Широта'].iloc[0], df['Долгота'].iloc[0]], zoom_start=13) # отобразим все точки
     for index, row in df.iterrows():
