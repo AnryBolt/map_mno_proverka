@@ -5,7 +5,6 @@ import folium
 import itertools
 from sklearn.cluster import KMeans
 import streamlit as st
-import os
 import io
 import warnings
 warnings.filterwarnings('ignore')
