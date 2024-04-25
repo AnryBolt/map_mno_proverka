@@ -9,6 +9,7 @@ import io
 import warnings
 warnings.filterwarnings('ignore')
 
+st.set_page_config(page_title='Проверка МНО для ЯК')
 st.title('Генерация Таблицы и Маршрута для Яндекс-Карт по проверкам',)
 
 uploaded_lo_proverka = st.file_uploader("**:red[1. Выбери файл ЛО_Проверка...]**")
@@ -200,3 +201,5 @@ if uploaded_lo_proverka != None:
                        )
 
     st.markdown("[ЯКонструктор](https://yandex.ru/map-constructor)")
+
+# streamlit run main.py
