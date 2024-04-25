@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title='Проверка МНО для ЯК', page_icon='eco.png',layout='wide')
-st.title('Генерация Таблицы и Маршрута для Яндекс-Карт по проверкам',)
+st.title('Генерация Таблицы и Маршрута для Яндекс-Карт по проверкам')
 
 uploaded_lo_proverka = st.file_uploader("**:red[1. Выбери файл ЛО_Проверка...]**")
 
@@ -37,6 +37,7 @@ if uploaded_lo_proverka != None:
     merge['Описание'] = merge['Категория'] + "; " + "ВМР: " + merge['Прибытие_по_x'].astype('str') + "; " + "ТКО: " + merge['Прибытие_по_y'].astype('str') + "; " + merge['Описание']
     merge = merge.drop(["Категория","Прибытие_по_x","Прибытие_по_y"], axis=1)
     merge['Номер метки'] = np.NAN
+    merge = merge[merge['Подпись'].notnull()]
     merge['Подпись'] = merge['Подпись'].astype(int)
     merge['Широта'] = merge['Широта'].astype(float)
     merge['Долгота'] = merge['Долгота'].astype(float)
