@@ -61,7 +61,7 @@ if uploaded_lo_proverka != None:
         return optimal_path
 
     # Производим кластеризацию с заданным числом кластеров
-    n_clusters=int(len(df)/4)
+    n_clusters=int(len(df)/4) + 1
     kmeans = KMeans(n_clusters, init = 'k-means++', max_iter = 300, n_init = 10\
                     #, random_state = 42
                     )
@@ -178,7 +178,8 @@ if uploaded_lo_proverka != None:
 
     print(f'Общий путь: {total_distance} км')
     # Вывод на экран общего пути
-    st.write(f'**Общий путь: {total_distance} км**')
+    st.write(f'**Количество МНО: {union_df["Долгота"].count()} шт.. Общий путь: {total_distance} км**')
+    st.button('Обновить путь для данной точки при необходимости')
 
     m.save('map.html')
 
