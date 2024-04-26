@@ -62,7 +62,7 @@ if uploaded_lo_proverka != None:
 
     # Производим кластеризацию с заданным числом кластеров
     n_clusters=int(len(df)/4) + 1
-    kmeans = KMeans(n_clusters, init = 'k-means++', max_iter = 300, n_init = 10)
+    kmeans = KMeans(n_clusters, init = 'k-means++')
     df['Кластер'] = kmeans.fit_predict(df[['Широта','Долгота']])
     m = folium.Map(location=[df['Широта'].iloc[0], df['Долгота'].iloc[0]], zoom_start=13) # отобразим все точки
     for index, row in df.iterrows():
@@ -201,7 +201,7 @@ if uploaded_lo_proverka != None:
                        ,mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                        ,file_name='Для ЯК.xlsx'
                        )
-
+    st.write(":red[После скачивания обязательно открой файл, кликни в любую ячейку, чтобы появился курсор и закрой, сохранив данные!]")
     st.markdown("[ЯКонструктор](https://yandex.ru/map-constructor)")
 
 # streamlit run main.py
