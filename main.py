@@ -7,6 +7,7 @@ from sklearn.cluster import KMeans
 import streamlit as st
 import io
 import warnings
+import streamlit.components.v1 as components
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title='Проверка МНО для ЯК', page_icon='eco.png',layout='wide')
@@ -185,7 +186,7 @@ if uploaded_lo_proverka != None:
         map_html = f.read()
 
     # Отображение карты
-    st.components.v1.html(map_html, width=1700, height=800)
+    components.html(map_html, width=1700, height=800)
 
     itog_table = union_df.drop(columns ='Кластер')
     # Отображение таблицы
