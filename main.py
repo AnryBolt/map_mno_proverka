@@ -24,6 +24,7 @@ if uploaded_lo_proverka != None:
     lo_proverka['ВМР'] = 'ВМР'
     lo_proverka['ТКО'] = 'ТКО'
     lo_proverka = lo_proverka.drop_duplicates('Подпись')
+    lo_proverka['Подпись'] = lo_proverka['Подпись'].astype(str)
 
     graph_df = pd.read_excel('Graphic.xlsm', usecols=['Идентификатор ТСОО', 'Прибытие по', 'ВМР'])
     graph_df.columns=['МНО', 'Прибытие_по', 'Категория_Конт']
@@ -43,6 +44,10 @@ if uploaded_lo_proverka != None:
     merge['Широта'] = merge['Широта'].astype(float)
     merge['Долгота'] = merge['Долгота'].astype(float)
     df = merge[['Широта', 'Долгота', 'Описание', 'Подпись', 'Номер метки']]
+
+    #print(lo_proverka)
+    #print(graph_df)
+    #print(merge)
 
     # Функция для вычисления расстояния между двумя точками
     def distance(point1, point2):
@@ -204,5 +209,7 @@ if uploaded_lo_proverka != None:
                        )
     st.write(":red[После скачивания обязательно открой файл, кликни в любую ячейку, чтобы появился курсор и закрой, сохранив данные!]")
     st.markdown("[ЯКонструктор](https://yandex.ru/map-constructor)")
+
+
 
 # streamlit run main.py
