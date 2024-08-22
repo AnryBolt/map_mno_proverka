@@ -207,7 +207,7 @@ if uploaded_lo_proverka != None:
                        ,mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                        ,file_name='Для ЯК.xlsx'
                        )
-    st.write(":red[После скачивания обязательно открой файл, кликни в любую ячейку, чтобы появился курсор и закрой, сохранив данные!]")
+    #st.write(":red[После скачивания обязательно открой файл, кликни в любую ячейку, чтобы появился курсор и закрой, сохранив данные!]")
     st.markdown("[ЯКонструктор](https://yandex.ru/map-constructor)")
 
 
