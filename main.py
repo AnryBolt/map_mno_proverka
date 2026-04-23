@@ -8,6 +8,8 @@ import streamlit as st
 import io
 import warnings
 import streamlit.components.v1 as components
+import requests
+import time
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title='Проверка МНО для ЯК', page_icon='eco.png',layout='wide')
@@ -49,22 +51,150 @@ if uploaded_lo_proverka != None:
     #print(graph_df)
     #print(merge)
 
-    # Функция для вычисления расстояния между двумя точками
+    # Функция для вычисления расстояния между двумя точками (прямая)
     def distance(point1, point2):
         return geodesic((point1["Широта"], point1["Долгота"]), (point2["Широта"], point2["Долгота"])).meters
 
-    # Функция для поиска оптимального пути
+    # Функция для получения пешеходного маршрута и расстояния через OSRM
+    def get_osrm_distance(point1, point2, timeout=5):
+        """
+        Получает расстояние и геометрию пешеходного маршрута между двумя точками через OSRM API.
+        Возвращает (расстояние в метрах, список координат маршрута) или (None, None) при ошибке.
+        """
+        lon1, lat1 = point1["Долгота"], point1["Широта"]
+        lon2, lat2 = point2["Долгота"], point2["Широта"]
+        
+        url = f"http://router.project-osrm.org/route/v1/foot/{lon1},{lat1};{lon2},{lat2}?overview=full&geometries=geojson"
+        
+        try:
+            response = requests.get(url, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data['code'] == 'Ok' and len(data['routes']) > 0:
+                route = data['routes'][0]
+                distance_m = route['distance']
+                geometry = route['geometry']['coordinates']  # [[lon, lat], ...]
+                # Преобразуем в [lat, lon] для folium
+                route_coords = [[coord[1], coord[0]] for coord in geometry]
+                return distance_m, route_coords
+            else:
+                return None, None
+        except Exception as e:
+            print(f"Ошибка OSRM: {e}")
+            return None, None
+
+    # Функция для построения матрицы расстояний с использованием OSRM
+    def build_osrm_distance_matrix(points, max_retries=3):
+        n = len(points)
+        matrix = np.zeros((n, n))
+        routes = {}  # Хранение маршрутов для визуализации
+        
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
+        total_pairs = n * (n - 1) // 2
+        pair_count = 0
+        
+        for i in range(n):
+            for j in range(i + 1, n):
+                retry = 0
+                while retry < max_retries:
+                    dist, route_coords = get_osrm_distance(points[i], points[j])
+                    
+                    if dist is not None:
+                        matrix[i][j] = dist
+                        matrix[j][i] = dist
+                        routes[(i, j)] = route_coords
+                        routes[(j, i)] = route_coords[::-1]  # Обратный маршрут
+                        break
+                    else:
+                        retry += 1
+                        time.sleep(0.5)  # Пауза перед повторной попыткой
+                
+                if dist is None:
+                    # Если OSRM не ответил, используем прямое расстояние * 1.3 как эвристику
+                    direct_dist = distance(points[i], points[j])
+                    matrix[i][j] = direct_dist * 1.3
+                    matrix[j][i] = direct_dist * 1.3
+                    routes[(i, j)] = None
+                    routes[(j, i)] = None
+                
+                pair_count += 1
+                progress_bar.progress(pair_count / total_pairs)
+                status_text.text(f"Построение матрицы расстояний: {pair_count}/{total_pairs}")
+        
+        progress_bar.empty()
+        status_text.empty()
+        
+        return matrix, routes
+
+    # Алгоритм 2-opt для оптимизации маршрута
+    def two_opt(points, distance_matrix, max_iterations=100):
+        n = len(points)
+        if n <= 2:
+            return list(range(n))
+        
+        # Начальный маршрут: жадный алгоритм (ближайший сосед)
+        unvisited = set(range(1, n))
+        current = 0
+        path = [current]
+        
+        while unvisited:
+            next_point = min(unvisited, key=lambda x: distance_matrix[current][x])
+            path.append(next_point)
+            unvisited.remove(next_point)
+            current = next_point
+        
+        # Оптимизация 2-opt
+        improved = True
+        iteration = 0
+        
+        while improved and iteration < max_iterations:
+            improved = False
+            iteration += 1
+            
+            for i in range(1, n - 1):
+                for j in range(i + 1, n):
+                    # Вычисляем длину текущего маршрута
+                    old_cost = distance_matrix[path[i-1]][path[i]] + distance_matrix[path[j]][path[(j+1) % n]]
+                    # Вычисляем длину после изменения
+                    new_cost = distance_matrix[path[i-1]][path[j]] + distance_matrix[path[i]][path[(j+1) % n]]
+                    
+                    if new_cost < old_cost:
+                        # Разворачиваем участок пути между i и j
+                        path[i:j+1] = reversed(path[i:j+1])
+                        improved = True
+                        break
+                
+                if improved:
+                    break
+        
+        return path
+
+    # Функция для поиска оптимального пути с использованием 2-opt и OSRM
     def find_optimal_path(df):
         points = df.to_dict('records')
-        optimal_path = []
-        min_distance = float('inf')
-        for path in itertools.permutations(points[1:], len(points) - 1):
-            current_path = [points[0]] + list(path)
-            total_distance = sum(distance(current_path[i], current_path[i+1]) for i in range(len(current_path) - 1))
-            if total_distance < min_distance:
-                min_distance = total_distance
-                optimal_path = current_path
-        return optimal_path
+        n = len(points)
+        
+        if n <= 1:
+            return points
+        
+        if n == 2:
+            return points
+        
+        # Строим матрицу расстояний через OSRM
+        st.write(f"🔄 Построение матрицы расстояний для {n} точек...")
+        distance_matrix, routes = build_osrm_distance_matrix(points)
+        
+        # Применяем 2-opt для оптимизации
+        st.write("🔍 Оптимизация маршрута алгоритмом 2-opt...")
+        optimal_indices = two_opt(points, distance_matrix)
+        
+        # Формируем оптимальный путь
+        optimal_path = [points[i] for i in optimal_indices]
+        
+        return optimal_path, routes
 
     # Производим кластеризацию с заданным числом кластеров
     n_clusters=int(len(df)/4) + 1
@@ -98,7 +228,14 @@ if uploaded_lo_proverka != None:
         dt = df.loc[df['Кластер'] == iter_Cluster] # отделяем текущий кластер
         length_dt = len(dt) # кол-во элементов в кластере
         # Находим оптимальный путь
-        optimal_path = find_optimal_path(dt)
+        result = find_optimal_path(dt)
+        
+        # Обрабатываем результат: если это кортеж (путь, маршруты), берем только путь
+        if isinstance(result, tuple):
+            optimal_path, cluster_routes = result
+        else:
+            optimal_path = result
+            cluster_routes = {}
 
         # Обновляем DataFrame с найденным оптимальным путем
         dt_optimal = pd.DataFrame(optimal_path)
@@ -167,18 +304,48 @@ if uploaded_lo_proverka != None:
             icon=folium.Icon(color=cluster_colors_dict.get(row['Кластер'], 'gray'))
         ).add_to(m)
 
-    # Создание красных линий соединения точек по номеру метки
-    points = union_df.sort_values(by='Номер метки')
-
-    folium.PolyLine(
-        locations=points[['Широта', 'Долгота']],
-        color='red'
-    ).add_to(m)  # Добавление линии на карту
-
-    coords = points[['Широта', 'Долгота']].values.tolist()
-
-    # Вычислите общее расстояние, суммируя расстояния между всеми последовательными точками
-    total_distance = round(sum(geodesic(coords[i], coords[i+1]).km for i in range(len(coords)-1)),2)
+    # Построение пешеходных маршрутов между точками через OSRM
+    points_sorted = union_df.sort_values(by='Номер метки')
+    coords_list = points_sorted[['Широта', 'Долгота']].values.tolist()
+    
+    total_osrm_distance = 0
+    
+    st.write("🗺️ Построение пешеходных маршрутов на карте...")
+    route_progress = st.progress(0)
+    
+    for i in range(len(coords_list) - 1):
+        point1 = points_sorted.iloc[i]
+        point2 = points_sorted.iloc[i + 1]
+        
+        # Получаем маршрут через OSRM
+        dist, route_coords = get_osrm_distance(point1, point2, timeout=3)
+        
+        if route_coords is not None and len(route_coords) > 1:
+            # Рисуем детальный пешеходный маршрут
+            folium.PolyLine(
+                locations=route_coords,
+                color='red',
+                weight=4,
+                opacity=0.8
+            ).add_to(m)
+            total_osrm_distance += dist / 1000  # в км
+        else:
+            # Если OSRM не ответил, рисуем прямую линию
+            folium.PolyLine(
+                locations=[coords_list[i], coords_list[i + 1]],
+                color='red',
+                weight=3,
+                opacity=0.6,
+                dash_array='5'
+            ).add_to(m)
+            direct_dist = geodesic(coords_list[i], coords_list[i + 1]).km
+            total_osrm_distance += direct_dist
+        
+        route_progress.progress((i + 1) / (len(coords_list) - 1))
+    
+    route_progress.empty()
+    
+    total_distance = round(total_osrm_distance, 2)
 
     print(f'Общий путь: {total_distance} км')
     # Вывод на экран общего пути
