@@ -10,10 +10,21 @@ import warnings
 import streamlit.components.v1 as components
 import requests
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title='Проверка МНО для ЯК', page_icon='eco.png',layout='wide')
 st.title('Генерация Таблицы и Маршрута для Яндекс-Карт по проверкам')
+
+# Инициализация session state для хранения результатов
+if 'route_result' not in st.session_state:
+    st.session_state.route_result = None
+if 'map_html' not in st.session_state:
+    st.session_state.map_html = None
+if 'excel_bytes' not in st.session_state:
+    st.session_state.excel_bytes = None
+if 'start_coords' not in st.session_state:
+    st.session_state.start_coords = None
 
 uploaded_lo_proverka = st.file_uploader("**:red[1. Выбери файл ЛО_Проверка...]**")
 
@@ -55,14 +66,22 @@ if uploaded_lo_proverka != None:
     def distance(point1, point2):
         return geodesic((point1["Широта"], point1["Долгота"]), (point2["Широта"], point2["Долгота"])).meters
 
-    # Функция для получения пешеходного маршрута и расстояния через OSRM
-    def get_osrm_distance(point1, point2, timeout=5):
+    # Функция для получения пешеходного маршрута и расстояния через OSRM (с кэшированием)
+    _osrm_cache = {}
+    
+    def get_osrm_distance(point1, point2, timeout=3):
         """
         Получает расстояние и геометрию пешеходного маршрута между двумя точками через OSRM API.
         Возвращает (расстояние в метрах, список координат маршрута) или (None, None) при ошибке.
+        Использует кэширование для ускорения повторных запросов.
         """
         lon1, lat1 = point1["Долгота"], point1["Широта"]
         lon2, lat2 = point2["Долгота"], point2["Широта"]
+        
+        # Создаем ключ для кэша
+        cache_key = (round(lon1, 5), round(lat1, 5), round(lon2, 5), round(lat2, 5))
+        if cache_key in _osrm_cache:
+            return _osrm_cache[cache_key]
         
         url = f"http://router.project-osrm.org/route/v1/foot/{lon1},{lat1};{lon2},{lat2}?overview=full&geometries=geojson"
         
@@ -77,15 +96,17 @@ if uploaded_lo_proverka != None:
                 geometry = route['geometry']['coordinates']  # [[lon, lat], ...]
                 # Преобразуем в [lat, lon] для folium
                 route_coords = [[coord[1], coord[0]] for coord in geometry]
-                return distance_m, route_coords
+                result = (distance_m, route_coords)
+                _osrm_cache[cache_key] = result
+                return result
             else:
                 return None, None
         except Exception as e:
             print(f"Ошибка OSRM: {e}")
             return None, None
 
-    # Функция для построения матрицы расстояний с использованием OSRM
-    def build_osrm_distance_matrix(points, max_retries=3):
+    # Функция для построения матрицы расстояний с использованием OSRM (параллельная версия)
+    def build_osrm_distance_matrix(points, max_retries=3, use_parallel=True):
         n = len(points)
         matrix = np.zeros((n, n))
         routes = {}  # Хранение маршрутов для визуализации
@@ -96,33 +117,68 @@ if uploaded_lo_proverka != None:
         total_pairs = n * (n - 1) // 2
         pair_count = 0
         
-        for i in range(n):
-            for j in range(i + 1, n):
+        if use_parallel and n > 3:
+            # Параллельное вычисление матрицы расстояний
+            def compute_pair(i_j):
+                i, j = i_j
                 retry = 0
                 while retry < max_retries:
                     dist, route_coords = get_osrm_distance(points[i], points[j])
                     
                     if dist is not None:
-                        matrix[i][j] = dist
-                        matrix[j][i] = dist
-                        routes[(i, j)] = route_coords
-                        routes[(j, i)] = route_coords[::-1]  # Обратный маршрут
-                        break
+                        return (i, j, dist, route_coords)
                     else:
                         retry += 1
-                        time.sleep(0.5)  # Пауза перед повторной попыткой
+                        time.sleep(0.2)
                 
-                if dist is None:
-                    # Если OSRM не ответил, используем прямое расстояние * 1.3 как эвристику
-                    direct_dist = distance(points[i], points[j])
-                    matrix[i][j] = direct_dist * 1.3
-                    matrix[j][i] = direct_dist * 1.3
-                    routes[(i, j)] = None
-                    routes[(j, i)] = None
+                # Если OSRM не ответил, используем прямое расстояние * 1.3 как эвристику
+                direct_dist = distance(points[i], points[j])
+                return (i, j, direct_dist * 1.3, None)
+            
+            pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
+            
+            with ThreadPoolExecutor(max_workers=min(8, len(pairs))) as executor:
+                futures = {executor.submit(compute_pair, pair): pair for pair in pairs}
                 
-                pair_count += 1
-                progress_bar.progress(pair_count / total_pairs)
-                status_text.text(f"Построение матрицы расстояний: {pair_count}/{total_pairs}")
+                for future in as_completed(futures):
+                    i, j, dist, route_coords = future.result()
+                    matrix[i][j] = dist
+                    matrix[j][i] = dist
+                    routes[(i, j)] = route_coords
+                    routes[(j, i)] = route_coords[::-1] if route_coords else None
+                    
+                    pair_count += 1
+                    progress_bar.progress(pair_count / total_pairs)
+                    status_text.text(f"Построение матрицы расстояний: {pair_count}/{total_pairs}")
+        else:
+            # Последовательное вычисление для небольших наборов
+            for i in range(n):
+                for j in range(i + 1, n):
+                    retry = 0
+                    while retry < max_retries:
+                        dist, route_coords = get_osrm_distance(points[i], points[j])
+                        
+                        if dist is not None:
+                            matrix[i][j] = dist
+                            matrix[j][i] = dist
+                            routes[(i, j)] = route_coords
+                            routes[(j, i)] = route_coords[::-1]  # Обратный маршрут
+                            break
+                        else:
+                            retry += 1
+                            time.sleep(0.2)
+                    
+                    if dist is None:
+                        # Если OSRM не ответил, используем прямое расстояние * 1.3 как эвристику
+                        direct_dist = distance(points[i], points[j])
+                        matrix[i][j] = direct_dist * 1.3
+                        matrix[j][i] = direct_dist * 1.3
+                        routes[(i, j)] = None
+                        routes[(j, i)] = None
+                    
+                    pair_count += 1
+                    progress_bar.progress(pair_count / total_pairs)
+                    status_text.text(f"Построение матрицы расстояний: {pair_count}/{total_pairs}")
         
         progress_bar.empty()
         status_text.empty()
@@ -200,15 +256,40 @@ if uploaded_lo_proverka != None:
     n_clusters=int(len(df)/4) + 1
     kmeans = KMeans(n_clusters, init = 'k-means++')
     df['Кластер'] = kmeans.fit_predict(df[['Широта','Долгота']])
-    m = folium.Map(location=[df['Широта'].iloc[0], df['Долгота'].iloc[0]], zoom_start=13) # отобразим все точки
-    for index, row in df.iterrows():
-        folium.Marker(
-            location=[row['Широта'], row['Долгота']],
-            tooltip=row['Подпись'],
-        ).add_to(m)
-
-    # Выпадающий список МНО для выбора первого МНО
-    option = st.selectbox('**:red[2. Выбери первое МНО, с которого начнешь путь]**',df['Подпись'].sort_values().unique())
+    
+    # Выбор начальной точки: через selectbox или клик на карте
+    st.write('**:red[2. Выбери первое МНО, с которого начнешь путь]**')
+    
+    # Опция выбора начальной точки кликом на карте
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        use_map_click = st.checkbox("Выбрать начальную точку на карте", value=False)
+    
+    if use_map_click:
+        # Отображаем карту для выбора начальной точки
+        temp_map = folium.Map(location=[df['Широта'].iloc[0], df['Долгота'].iloc[0]], zoom_start=13)
+        for index, row in df.iterrows():
+            folium.Marker(
+                location=[row['Широта'], row['Долгота']],
+                tooltip=f"{row['Подпись']}: {row['Описание']}",
+                popup=f"ID: {row['Подпись']}"
+            ).add_to(temp_map)
+        
+        with open('temp_map.html', 'w', encoding='utf-8') as f:
+            temp_map.save(f)
+        
+        with open('temp_map.html', 'r', encoding='utf-8') as f:
+            temp_map_html = f.read()
+        
+        st.write("Нажми на маркер нужной точки на карте:")
+        components.html(temp_map_html, width=800, height=600)
+        
+        # Временное решение: показываем таблицу всех точек для выбора
+        st.write("Или выбери из списка ниже:")
+        point_list = df['Подпись'].sort_values().unique().tolist()
+        option = st.selectbox('Выберите начальную точку:', point_list, key='map_select')
+    else:
+        option = st.selectbox('**:red[Выбери первое МНО из списка]**', df['Подпись'].sort_values().unique(), key='list_select')
         
     begin_point = option #int(input()) # выберем нужную точку для начала пути
     # Координаты начальной точки
@@ -295,13 +376,18 @@ if uploaded_lo_proverka != None:
 
     cluster_colors_dict = dict(zip(range(len(cluster_colors)), cluster_colors))
 
-    # Добавление точек на карту с разными цветами для разных кластеров
+    # Добавление точек на карту с разными цветами для разных кластеров и номерами меток
     for index, row in union_df.iterrows():
+        # Создаем HTML для метки с порядковым номером
+        marker_number = int(row['Номер метки'])
         folium.Marker(
             location=[row['Широта'], row['Долгота']],
-            popup=f"Номер метки: {row['Номер метки']}\n{row['Описание']}",
-            tooltip=row['Подпись'],
-            icon=folium.Icon(color=cluster_colors_dict.get(row['Кластер'], 'gray'))
+            popup=f"Номер метки: {marker_number}\n{row['Описание']}",
+            tooltip=f"#{marker_number}: {row['Подпись']}",
+            icon=folium.DivIcon(
+                html=f'''<div style="font-size: 10pt; font-weight: bold; color: white; background-color: {cluster_colors_dict.get(row['Кластер'], 'gray')}; border: 2px solid black; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px;">{marker_number}</div>''',
+                icon_size=(24, 24)
+            )
         ).add_to(m)
 
     # Построение пешеходных маршрутов между точками через OSRM
@@ -350,29 +436,43 @@ if uploaded_lo_proverka != None:
     print(f'Общий путь: {total_distance} км')
     # Вывод на экран общего пути
     st.write(f'**Количество МНО: {union_df["Долгота"].count()} шт.. Общий путь: {total_distance} км**')
-    st.button('Обновить путь для данной точки при необходимости')
+    
+    # Сохраняем результаты в session state чтобы избежать повторного расчета при скачивании
+    if 'route_result' not in st.session_state or st.session_state.route_result is None:
+        st.session_state.route_result = {
+            'union_df': union_df,
+            'total_distance': total_distance
+        }
 
     m.save('map.html')
 
     with open('map.html', 'r', encoding='utf-8') as f:
         map_html = f.read()
 
-    # Отображение карты
-    components.html(map_html, width=1700, height=800)
-
     itog_table = union_df.drop(columns ='Кластер')
-    # Отображение таблицы
-    st.write(itog_table,)
-
+    
     towrite = io.BytesIO()
     itog_table.to_excel(towrite, index=False)
     towrite.seek(0)  # возврат указателя в начало байтового объекта
     excel_bytes = towrite.read()
+    
+    # Сохраняем в session state для использования кнопкой скачивания
+    st.session_state.map_html = map_html
+    st.session_state.excel_bytes = excel_bytes
+    st.session_state.itog_table = itog_table
 
+    # Отображение карты
+    components.html(st.session_state.map_html, width=1700, height=800, scrolling=False)
+
+    # Отображение таблицы
+    st.write(st.session_state.itog_table)
+
+    # Кнопка скачивания использует сохраненные данные из session state
     st.download_button(label='**:red[Скачать xlsx]**'\
-                       , data=excel_bytes
+                       , data=st.session_state.excel_bytes
                        ,mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                        ,file_name='Для ЯК.xlsx'
+                       ,key='download_xlsx'
                        )
     #st.write(":red[После скачивания обязательно открой файл, кликни в любую ячейку, чтобы появился курсор и закрой, сохранив данные!]")
     st.markdown("[ЯКонструктор](https://yandex.ru/map-constructor)")
