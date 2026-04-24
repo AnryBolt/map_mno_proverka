@@ -28,16 +28,16 @@ if 'start_coords' not in st.session_state:
     st.session_state.start_coords = None
 if 'calculation_started' not in st.session_state:
     st.session_state.calculation_started = False
-if 'log_messages' not in st.session_state:
-    st.session_state.log_messages = []
+if 'final_union_df' not in st.session_state:
+    st.session_state.final_union_df = None
+if 'final_coords_list' not in st.session_state:
+    st.session_state.final_coords_list = None
+if 'final_total_distance' not in st.session_state:
+    st.session_state.final_total_distance = None
 
 def add_log(message):
-    """Добавляет сообщение в лог"""
-    timestamp = time.strftime('%H:%M:%S')
-    st.session_state.log_messages.append(f"[{timestamp}] {message}")
-    # Ограничиваем количество сообщений в логе
-    if len(st.session_state.log_messages) > 100:
-        st.session_state.log_messages = st.session_state.log_messages[-100:]
+    """Добавляет сообщение в лог (внутренний, не отображается)"""
+    pass  # Логи больше не нужны для визуализации
 
 uploaded_lo_proverka = st.file_uploader("**:red[1. Выбери файл ЛО_Проверка...]**")
 
@@ -118,11 +118,24 @@ if uploaded_lo_proverka != None:
             print(f"Ошибка OSRM: {e}")
             return None, None
 
-    # Функция для построения матрицы расстояний с использованием OSRM (параллельная версия)
-    def build_osrm_distance_matrix(points, max_retries=3, use_parallel=True):
+    # Функция для построения матрицы расстояний с использованием OSRM (оптимизированная версия)
+    def build_osrm_distance_matrix(points, max_retries=2, use_parallel=True):
         n = len(points)
         matrix = np.zeros((n, n))
         routes = {}  # Хранение маршрутов для визуализации
+        
+        # Для больших наборов точек используем упрощенную эвристику
+        if n > 50:
+            # Для очень больших кластеров используем прямое расстояние с коэффициентом 1.4
+            # Это значительно быстрее и дает приемлемые результаты для пешеходов
+            for i in range(n):
+                for j in range(i + 1, n):
+                    direct_dist = distance(points[i], points[j])
+                    matrix[i][j] = direct_dist * 1.4
+                    matrix[j][i] = direct_dist * 1.4
+                    routes[(i, j)] = None
+                    routes[(j, i)] = None
+            return matrix, routes
         
         progress_bar = st.progress(0)
         status_text = st.empty()
@@ -142,15 +155,15 @@ if uploaded_lo_proverka != None:
                         return (i, j, dist, route_coords)
                     else:
                         retry += 1
-                        time.sleep(0.2)
+                        time.sleep(0.1)
                 
-                # Если OSRM не ответил, используем прямое расстояние * 1.3 как эвристику
+                # Если OSRM не ответил, используем прямое расстояние * 1.4 как эвристику
                 direct_dist = distance(points[i], points[j])
-                return (i, j, direct_dist * 1.3, None)
+                return (i, j, direct_dist * 1.4, None)
             
             pairs = [(i, j) for i in range(n) for j in range(i + 1, n)]
             
-            with ThreadPoolExecutor(max_workers=min(8, len(pairs))) as executor:
+            with ThreadPoolExecutor(max_workers=min(12, len(pairs))) as executor:
                 futures = {executor.submit(compute_pair, pair): pair for pair in pairs}
                 
                 for future in as_completed(futures):
@@ -162,7 +175,7 @@ if uploaded_lo_proverka != None:
                     
                     pair_count += 1
                     progress_bar.progress(pair_count / total_pairs)
-                    status_text.text(f"Построение матрицы расстояний: {pair_count}/{total_pairs}")
+                    status_text.text(f"Матрица: {pair_count}/{total_pairs}")
         else:
             # Последовательное вычисление для небольших наборов
             for i in range(n):
@@ -175,23 +188,22 @@ if uploaded_lo_proverka != None:
                             matrix[i][j] = dist
                             matrix[j][i] = dist
                             routes[(i, j)] = route_coords
-                            routes[(j, i)] = route_coords[::-1]  # Обратный маршрут
+                            routes[(j, i)] = route_coords[::-1]
                             break
                         else:
                             retry += 1
-                            time.sleep(0.2)
+                            time.sleep(0.1)
                     
                     if dist is None:
-                        # Если OSRM не ответил, используем прямое расстояние * 1.3 как эвристику
                         direct_dist = distance(points[i], points[j])
-                        matrix[i][j] = direct_dist * 1.3
-                        matrix[j][i] = direct_dist * 1.3
+                        matrix[i][j] = direct_dist * 1.4
+                        matrix[j][i] = direct_dist * 1.4
                         routes[(i, j)] = None
                         routes[(j, i)] = None
                     
                     pair_count += 1
                     progress_bar.progress(pair_count / total_pairs)
-                    status_text.text(f"Построение матрицы расстояний: {pair_count}/{total_pairs}")
+                    status_text.text(f"Матрица: {pair_count}/{total_pairs}")
         
         progress_bar.empty()
         status_text.empty()
@@ -373,10 +385,13 @@ if uploaded_lo_proverka != None:
     # Завершаем общий прогресс
     overall_progress_bar.progress(1.0)
     overall_status.text("Общий прогресс: завершен!")
-    add_log("Расчет маршрута завершен")
 
     del union_df['First_MNO_klaster']
     union_df = union_df.reset_index().drop('index',axis=1)
+
+    # Сохраняем результаты в session state для предотвращения дублирования и повторного расчета
+    st.session_state.final_union_df = union_df.copy()
+    add_log(f"Результат сохранен. Строк: {len(union_df)}")
 
 
     # Создание карты
@@ -492,7 +507,10 @@ if uploaded_lo_proverka != None:
     st.session_state.map_html = map_html
     st.session_state.excel_bytes = excel_bytes
     st.session_state.itog_table = itog_table
-    st.session_state.coords_list = coords_list  # Сохраняем координаты для экспорта в навигатор
+    st.session_state.final_coords_list = coords_list  # Сохраняем координаты для экспорта в навигатор
+    st.session_state.final_total_distance = total_distance
+    
+    add_log(f"Маршрут построен. Длина: {total_distance} км, Точек: {len(coords_list)}")
 
     # Отображение карты
     components.html(st.session_state.map_html, width=1700, height=800, scrolling=False)
@@ -500,22 +518,11 @@ if uploaded_lo_proverka != None:
     # Отображение таблицы
     st.write(st.session_state.itog_table)
     
-    # Блок с логами и экспортом в навигатор
-    col_log, col_nav = st.columns([2, 1])
+    # Экспорт в навигатор
+    st.subheader("🧭 Экспорт в навигатор")
+    col_nav1, col_nav2 = st.columns(2)
     
-    with col_log:
-        # Окно с логами - компактное, со скроллом
-        st.subheader("📋 Логи расчета")
-        if len(st.session_state.log_messages) > 0:
-            log_text = "\n".join(st.session_state.log_messages[-50:])  # Показываем последние 50 сообщений
-            st.code(log_text, language="text")
-        else:
-            st.info("Логи появятся во время расчета")
-    
-    with col_nav:
-        # Кнопка экспорта маршрута для навигатора
-        st.subheader("🧭 Экспорт в навигатор")
-        
+    with col_nav1:
         # Формируем GPX файл для навигатора
         gpx_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
         gpx_content += '<gpx version="1.1" creator="RouteGenerator">\n'
@@ -536,9 +543,9 @@ if uploaded_lo_proverka != None:
             file_name='route.gpx',
             key='download_gpx'
         )
-        
         st.info("GPX файл можно открыть в Яндекс.Навигаторе, Google Maps, OsmAnd или другом навигаторе")
-        
+    
+    with col_nav2:
         # Дополнительно: KML для Google Earth
         kml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
         kml_content += '<kml xmlns="http://www.opengis.net/kml/2.2">\n'
@@ -567,7 +574,6 @@ if uploaded_lo_proverka != None:
                        ,file_name='Для ЯК.xlsx'
                        ,key='download_xlsx'
                        )
-    #st.write(":red[После скачивания обязательно открой файл, кликни в любую ячейку, чтобы появился курсор и закрой, сохранив данные!]")
     st.markdown("[ЯКонструктор](https://yandex.ru/map-constructor)")
 
 
