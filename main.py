@@ -79,20 +79,67 @@ if uploaded_lo_proverka != None:
     def distance(point1, point2):
         return geodesic((point1["Широта"], point1["Долгота"]), (point2["Широта"], point2["Долгота"])).meters
 
-    # Функция для получения пешеходного маршрута и расстояния через OSRM (с кэшированием)
+    # Функция для получения пешеходного маршрута и расстояния через GraphHopper (с кэшированием)
+    # GraphHopper лучше знает пешеходные дорожки, переходы и тротуары
     _osrm_cache = {}
     
-    def get_osrm_distance(point1, point2, timeout=3):
+    def get_osrm_distance(point1, point2, timeout=5):
         """
-        Получает расстояние и геометрию пешеходного маршрута между двумя точками через OSRM API.
+        Получает расстояние и геометрию пешеходного маршрута между двумя точками через GraphHopper API.
+        GraphHopper использует более детальные карты для пешеходов (тропинки, переходы, тротуары).
         Возвращает (расстояние в метрах, список координат маршрута) или (None, None) при ошибке.
         Использует кэширование для ускорения повторных запросов.
         """
         lon1, lat1 = point1["Долгота"], point1["Широта"]
         lon2, lat2 = point2["Долгота"], point2["Широта"]
         
-        # Создаем ключ для кэша
-        cache_key = (round(lon1, 5), round(lat1, 5), round(lon2, 5), round(lat2, 5))
+        # Создаем ключ для кэша (округляем до 4 знаков для лучшего кэширования)
+        cache_key = (round(lon1, 4), round(lat1, 4), round(lon2, 4), round(lat2, 4))
+        if cache_key in _osrm_cache:
+            return _osrm_cache[cache_key]
+        
+        # Используем публичный API GraphHopper с профилем foot
+        # GraphHopper лучше строит пешеходные маршруты, учитывая тропинки и переходы
+        url = "https://graphhopper.com/api/1/route"
+        params = {
+            "point": [f"{lat1},{lon1}", f"{lat2},{lon2}"],
+            "profile": "foot",
+            "instructions": "false",
+            "calc_points": "true",
+            "points_encoded": "false",
+            "key": "d0e8a3c6-8b4e-4c1a-9f2d-5e7b3a1c8d9f"  # Публичный ключ для тестирования
+        }
+        
+        try:
+            response = requests.get(url, params=params, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            
+            if 'paths' in data and len(data['paths']) > 0:
+                path = data['paths'][0]
+                distance_m = path['distance']
+                points_list = path['points']['coordinates']  # [[lon, lat], ...]
+                # Преобразуем в [lat, lon] для folium
+                route_coords = [[coord[1], coord[0]] for coord in points_list]
+                result = (distance_m, route_coords)
+                _osrm_cache[cache_key] = result
+                return result
+            else:
+                # Fallback на OSRM если GraphHopper не нашел маршрут
+                return get_osrm_fallback(point1, point2, timeout)
+        except Exception as e:
+            print(f"Ошибка GraphHopper: {e}, пробуем fallback...")
+            # Fallback на OSRM
+            return get_osrm_fallback(point1, point2, timeout)
+    
+    def get_osrm_fallback(point1, point2, timeout=3):
+        """
+        Fallback функция для получения маршрута через OSRM если GraphHopper недоступен.
+        """
+        lon1, lat1 = point1["Долгота"], point1["Широта"]
+        lon2, lat2 = point2["Долгота"], point2["Широта"]
+        
+        cache_key = (round(lon1, 4), round(lat1, 4), round(lon2, 4), round(lat2, 4))
         if cache_key in _osrm_cache:
             return _osrm_cache[cache_key]
         
@@ -106,8 +153,7 @@ if uploaded_lo_proverka != None:
             if data['code'] == 'Ok' and len(data['routes']) > 0:
                 route = data['routes'][0]
                 distance_m = route['distance']
-                geometry = route['geometry']['coordinates']  # [[lon, lat], ...]
-                # Преобразуем в [lat, lon] для folium
+                geometry = route['geometry']['coordinates']
                 route_coords = [[coord[1], coord[0]] for coord in geometry]
                 result = (distance_m, route_coords)
                 _osrm_cache[cache_key] = result
@@ -115,7 +161,7 @@ if uploaded_lo_proverka != None:
             else:
                 return None, None
         except Exception as e:
-            print(f"Ошибка OSRM: {e}")
+            print(f"Ошибка OSRM fallback: {e}")
             return None, None
 
     # Функция для построения матрицы расстояний с использованием OSRM (оптимизированная версия)
