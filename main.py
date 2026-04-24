@@ -11,6 +11,7 @@ import streamlit.components.v1 as components
 import requests
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import base64
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title='Проверка МНО для ЯК', page_icon='eco.png',layout='wide')
@@ -25,6 +26,18 @@ if 'excel_bytes' not in st.session_state:
     st.session_state.excel_bytes = None
 if 'start_coords' not in st.session_state:
     st.session_state.start_coords = None
+if 'calculation_started' not in st.session_state:
+    st.session_state.calculation_started = False
+if 'log_messages' not in st.session_state:
+    st.session_state.log_messages = []
+
+def add_log(message):
+    """Добавляет сообщение в лог"""
+    timestamp = time.strftime('%H:%M:%S')
+    st.session_state.log_messages.append(f"[{timestamp}] {message}")
+    # Ограничиваем количество сообщений в логе
+    if len(st.session_state.log_messages) > 100:
+        st.session_state.log_messages = st.session_state.log_messages[-100:]
 
 uploaded_lo_proverka = st.file_uploader("**:red[1. Выбери файл ЛО_Проверка...]**")
 
@@ -240,11 +253,11 @@ if uploaded_lo_proverka != None:
             return points
         
         # Строим матрицу расстояний через OSRM
-        st.write(f"🔄 Построение матрицы расстояний для {n} точек...")
+        add_log(f"Построение матрицы расстояний для {n} точек...")
         distance_matrix, routes = build_osrm_distance_matrix(points)
         
         # Применяем 2-opt для оптимизации
-        st.write("🔍 Оптимизация маршрута алгоритмом 2-opt...")
+        add_log("Оптимизация маршрута алгоритмом 2-opt...")
         optimal_indices = two_opt(points, distance_matrix)
         
         # Формируем оптимальный путь
@@ -263,10 +276,10 @@ if uploaded_lo_proverka != None:
     # Опция выбора начальной точки кликом на карте
     col1, col2 = st.columns([1, 1])
     with col1:
-        use_map_click = st.checkbox("Выбрать начальную точку на карте", value=False)
+        use_map_click = st.checkbox("Выбрать начальную точку на карте", value=False, key='map_click_option')
     
-    if use_map_click:
-        # Отображаем карту для выбора начальной точки
+    if use_map_click and not st.session_state.calculation_started:
+        # Отображаем карту для выбора начальной точки ТОЛЬКО если расчет еще не начался
         temp_map = folium.Map(location=[df['Широта'].iloc[0], df['Долгота'].iloc[0]], zoom_start=13)
         for index, row in df.iterrows():
             folium.Marker(
@@ -300,14 +313,28 @@ if uploaded_lo_proverka != None:
     df.loc[df['Подпись'] == begin_point, 'First_MNO_klaster'] = 1
     df = df.sort_values('First_MNO_klaster', ascending=False)
 
+    # Устанавливаем флаг начала расчета - теперь расчет начался
+    st.session_state.calculation_started = True
+    add_log(f"Начало расчета маршрута. Точек: {len(df)}, Кластеров: {n_clusters}")
+
     iter_Cluster = first_cluster
     union_df = pd.DataFrame()
 
     for_pred_len = 0
+    
+    # Общий прогресс-бар для всего процесса
+    total_clusters = n_clusters
+    overall_progress_bar = st.progress(0)
+    overall_status = st.empty()
 
     for i in range(1,n_clusters+1):
+        overall_status.text(f"Общий прогресс: {i-1}/{total_clusters} кластеров обработано")
+        overall_progress_bar.progress((i-1) / total_clusters)
+        
         dt = df.loc[df['Кластер'] == iter_Cluster] # отделяем текущий кластер
         length_dt = len(dt) # кол-во элементов в кластере
+        add_log(f"Обработка кластера {i}: {length_dt} точек")
+        
         # Находим оптимальный путь
         result = find_optimal_path(dt)
         
@@ -342,6 +369,11 @@ if uploaded_lo_proverka != None:
         del df['Расстояние_от_пред_кластера']
         df.loc[df['Подпись'] == first_mno_klaster, 'First_MNO_klaster'] = 1
         df = df.sort_values('First_MNO_klaster', ascending=False)
+
+    # Завершаем общий прогресс
+    overall_progress_bar.progress(1.0)
+    overall_status.text("Общий прогресс: завершен!")
+    add_log("Расчет маршрута завершен")
 
     del union_df['First_MNO_klaster']
     union_df = union_df.reset_index().drop('index',axis=1)
@@ -460,12 +492,73 @@ if uploaded_lo_proverka != None:
     st.session_state.map_html = map_html
     st.session_state.excel_bytes = excel_bytes
     st.session_state.itog_table = itog_table
+    st.session_state.coords_list = coords_list  # Сохраняем координаты для экспорта в навигатор
 
     # Отображение карты
     components.html(st.session_state.map_html, width=1700, height=800, scrolling=False)
 
     # Отображение таблицы
     st.write(st.session_state.itog_table)
+    
+    # Блок с логами и экспортом в навигатор
+    col_log, col_nav = st.columns([2, 1])
+    
+    with col_log:
+        # Окно с логами - компактное, со скроллом
+        st.subheader("📋 Логи расчета")
+        if len(st.session_state.log_messages) > 0:
+            log_text = "\n".join(st.session_state.log_messages[-50:])  # Показываем последние 50 сообщений
+            st.code(log_text, language="text")
+        else:
+            st.info("Логи появятся во время расчета")
+    
+    with col_nav:
+        # Кнопка экспорта маршрута для навигатора
+        st.subheader("🧭 Экспорт в навигатор")
+        
+        # Формируем GPX файл для навигатора
+        gpx_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+        gpx_content += '<gpx version="1.1" creator="RouteGenerator">\n'
+        gpx_content += '<trk>\n<trkseg>\n'
+        
+        for coord in coords_list:
+            lat, lon = coord
+            gpx_content += f'<trkpt lat="{lat}" lon="{lon}"></trkpt>\n'
+        
+        gpx_content += '</trkseg>\n</trk>\n</gpx>'
+        
+        gpx_bytes = gpx_content.encode('utf-8')
+        
+        st.download_button(
+            label='📥 Скачать GPX (для навигатора)',
+            data=gpx_bytes,
+            mime='application/gpx+xml',
+            file_name='route.gpx',
+            key='download_gpx'
+        )
+        
+        st.info("GPX файл можно открыть в Яндекс.Навигаторе, Google Maps, OsmAnd или другом навигаторе")
+        
+        # Дополнительно: KML для Google Earth
+        kml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+        kml_content += '<kml xmlns="http://www.opengis.net/kml/2.2">\n'
+        kml_content += '<Document>\n<Placemark>\n<LineString>\n<coordinates>\n'
+        
+        for coord in coords_list:
+            lat, lon = coord
+            kml_content += f'{lon},{lat},0\n'
+        
+        kml_content += '</coordinates>\n</LineString>\n</Placemark>\n</Document>\n</kml>'
+        
+        kml_bytes = kml_content.encode('utf-8')
+        
+        st.download_button(
+            label='🌍 Скачать KML (Google Earth)',
+            data=kml_bytes,
+            mime='application/vnd.google-earth.kml+xml',
+            file_name='route.kml',
+            key='download_kml'
+        )
 
     # Кнопка скачивания использует сохраненные данные из session state
     st.download_button(label='**:red[Скачать xlsx]**'\
